@@ -17,6 +17,13 @@ function generateNearlyOrderArray(n, swapTimes) {
   }
 
   // 交互，创建接近为有序的数组
+  for (let i = 0; i < swapTimes; ++i) {
+    let left = Math.floor(Math.random() * n)
+    let right = Math.floor(Math.random() * n)
+    swap(retArray, left, right)
+  }
+
+  return retArray
 }
 // 打印数组
 function printArray(array) {
@@ -56,6 +63,7 @@ function copyArray(array) {
 
 module.exports = {
   generateRandomArray,
+  generateNearlyOrderArray,
   printArray,
   swap,
   testSort,
