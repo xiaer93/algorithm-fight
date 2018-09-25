@@ -10,17 +10,54 @@ function generateRandomArray(n, rangL, rangR) {
 
   return retArray
 }
+function generateNearlyOrderArray(n, swapTimes) {
+  let retArray = []
+  for(let i = 0; i < n; ++i) {
+    retArray[i] = i
+  }
+
+  // 交互，创建接近为有序的数组
+}
+// 打印数组
 function printArray(array) {
   console.log(...array)
 }
+// 交换数组
 function swap(array, left, right) {
   let tmp = array[left]
   array[left] = array[right]
   array[right] = tmp
 }
+// 测试算法性能
+function testSort(sortFunc, array) {
+  let startTime, endTime
+  startTime = +new Date()
+  sortFunc(array)
+  endTime = +new Date()
+
+  let isSort = isSorted(array)
+
+  isSort && console.log(sortFunc.name + ':' + (endTime - startTime) + 'ms')
+}
+// 检验数组是否排序成功
+function isSorted(array) {
+  for(let i = 0, len = array.length - 1; i < len; ++i) {
+    if (array[i] > array[i+1]) {
+      return false
+    }
+  }
+  return true
+}
+// 深度拷贝数组
+function copyArray(array) {
+  return JSON.parse(JSON.stringify(array))
+}
+
 
 module.exports = {
   generateRandomArray,
   printArray,
-  swap
+  swap,
+  testSort,
+  copyArray
 }
