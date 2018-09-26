@@ -59,7 +59,17 @@ function isSorted(array) {
 function copyArray(array) {
   return JSON.parse(JSON.stringify(array))
 }
-
+// ≤Â»Î≈≈–Ú
+function insertSort(array, left, right) {
+  for(let i = 1; i <= right; ++i) {
+    let tmpNumber = array[i]
+    let j = i
+    for(; j > 0 && array[j - 1] > tmpNumber; --j) {
+      array[j] = array[j-1]
+    }
+    array[j] = tmpNumber
+  }
+}
 
 module.exports = {
   generateRandomArray,
@@ -67,5 +77,6 @@ module.exports = {
   printArray,
   swap,
   testSort,
-  copyArray
+  copyArray,
+  insertSort
 }
