@@ -1,6 +1,7 @@
 /**
  * Created by xiaer on 2018/9/25.
  */
+// 二分法时间复杂度：O(lg2 n)  N*（1/2）^x=1；则x=logn,底数是2
 // array为有序数组，target为待查找对象
 function binarySearch(array, target) {
   // 在【left, right】的范围里寻找target
@@ -25,4 +26,6 @@ function binarySearch(array, target) {
   return -1
 }
 
-console.log(binarySearch([0,1,2,3], 10))
+module.exports = {
+  binarySearch
+}
