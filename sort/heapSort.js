@@ -1,6 +1,7 @@
 /**
  * Created by xiaer on 2018/9/27.
  */
+// 堆数据结构适合维护动态数据，很少直接用于排序
 // 堆数据结构，与优先队列的应用
 // 动态cpu任务处理，从n个元素中选出m个元素（优先队列时间复杂度nlogm）
 
@@ -13,10 +14,20 @@
 // 使用数组存储二叉堆，依照层序、自左向右（左节点：父节点序号 * 2；右节点：父节点序号 * 2 + 1）
 let  {swap} = require('../util/sortHelper')
 
+// 定义一个最大堆结构
 class MaxHeap {
   constructor() {
     this._data = []
     this._count = 0
+  }
+  createHeap (array) {
+    this._data = [, ...array]
+    this._count = array.length
+
+    // 计算第一个不为子节点的节点序号~~~！！！递归节点，调用shiftDown，构造最大堆
+    for(let i = Math.floor(this._count / 2); i >= 1; i--) {
+      this._shiftDown(i)
+    }
   }
   insert (value) {
     this._data[++this._count] = value
@@ -24,11 +35,64 @@ class MaxHeap {
     // shiftUp
     this._shiftUp(this._count)
   }
+  extractMax () {
+    let _ret = this._data[1]
+
+    swap(this._data, 1, this._count--)
+    this._shiftDown(1)
+
+    return _ret
+  }
   print () {
     // 自底向上构建打印列表~~~
     // n层最多节点数量 2^n - 1
     let _depth = Math.floor(Math.log2(this._count)) + 1
-    let _padLeft = [0, 20 * (_depth - 1)]
+    let _padLeft = []
+
+    let _outStr = []
+
+    // 构建最底层打印数据
+    let _start = Math.pow(2, _depth - 1)
+    let _end = Math.pow(2, _depth) - 1
+    let _gap = 0
+    let _str = ''
+    for(let j = _start; j <= _end; ++j) {
+      _padLeft[j] = _gap
+      _gap += 2
+
+      _str = _insert(_str, _padLeft[j], this._data[j])
+    }
+    _outStr.push(_str)
+
+    // 自底向上构建所有的打印数据~
+    for(let i = _depth - 1; i > 0; --i) {
+      _str = ''
+      let _start = Math.pow(2, i - 1)
+      let _end = Math.pow(2, i) - 1
+      for(let j = _start; j <= _end; ++j) {
+        _padLeft[j] = Math.floor((_padLeft[j * 2] + _padLeft[j * 2 + 1]) / 2)
+        _str = _insert(_str, _padLeft[j], this._data[j])
+      }
+      _outStr.push(_str)
+    }
+
+    // 打印最大堆
+    for(let i = _outStr.length - 1; i>= 0; --i) {
+      console.log(_outStr[i])
+    }
+
+    // 构建每一行的字符串
+    function _insert(str, gap, number = 0) {
+      let _len = str.length
+      if (_len < gap * 3 + 2) {
+        str = str.padEnd(gap * 3, ' ')
+        str += number.toString().padStart(2, '0')
+      } else {
+        str = str.substring(0, gap * 3) + number.toString().padStart(2, '0') + str.substring(gap * 3 + 2)
+      }
+
+      return str
+    }
   }
   size () {
     return this._count
@@ -45,10 +109,90 @@ class MaxHeap {
       tmpK = Math.floor(k / 2)
     }
   }
+  _shiftDown (k) {
+    // 向下移动元素，递归直至满足最大条件
+    // todo：可以尝试通过插入排序优化这个步骤
+    while (2 * k <= this._count) {
+      let j = 2 * k
+      if ( j + 1 <= this._count && this._data[j + 1] > this._data[j]) {
+        j += 1
+      }
+
+      if (this._data[k] >= this._data[j]){
+        break
+      }
+      swap(this._data, k, j)
+      k = j
+    }
+  }
 }
 
-let a = new MaxHeap()
-for(let i = 0; i < 20; i++) {
-  a.insert(Math.floor(Math.random() * 100))
+// 定义一个最小堆结构
+class MinHeap {}
+
+// 算法复杂度：nlogn
+function heapSort1(array) {
+  let _heap = new MaxHeap()
+  for(let i = 0, len = array.length; i < len; ++ i) {
+    _heap.insert(array[i])
+  }
+
+  for(let i = array.length - 1; i >= 0; i --) {
+    array[i] = _heap.extractMax()
+  }
 }
-a.print()
+
+// 算法复杂度: O(n)
+function heapSort2(array) {
+  let _heap = new MaxHeap()
+  // 直接处理数据，借助ShiftDown构建堆数组
+  _heap.createHeap(array)
+
+  for(let i = array.length - 1; i >= 0; --i) {
+    array[i] = _heap.extractMax()
+  }
+}
+// 上面2个堆排序，空间复杂度为O(n)。可以在原地堆排序，进行排序，空间复杂度将为O(1)
+// parent(i) = (i-1)/2  leftChild(i) = 2*i + 1, rightChild = 2*i + 2
+function heapSort3(array) {
+  for(let i = Math.floor((array.length - 1) / 2); i >= 0; i--) {
+    _shiftDown(array, array.length-1, i)
+  }
+  for(let i = array.length - 1; i > 0; i--) {
+    swap(array, 0, i)
+    _shiftDown(array, i - 1, 0)
+  }
+
+
+  function _shiftDown (array, count, k) {
+    // 向下移动元素，递归直至满足最大条件
+    // todo：可以尝试通过插入排序优化这个步骤
+    while (2 * k + 1 <= count) {
+      let j = 2 * k + 1
+      if ( j + 1 <= count && array[j + 1] > array[j]) {
+        j += 1
+      }
+
+      if (array[k] >= array[j]){
+        break
+      }
+      swap(array, k, j)
+      k = j
+    }
+  }
+}
+
+// let a = new MaxHeap()
+// for(let i = 0; i < 20; i++) {
+//   a.insert(Math.floor(Math.random() * 100))
+// }
+// a.print()
+// while (!a.isEmpty()) {
+//   console.log(a.extractMax())
+// }
+
+module.exports = {
+  heapSort1,
+  heapSort2,
+  heapSort3
+}
