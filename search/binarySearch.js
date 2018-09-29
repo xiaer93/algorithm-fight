@@ -3,7 +3,9 @@
  */
 // 二分法时间复杂度：O(lg2 n)  N*（1/2）^x=1；则x=logn,底数是2
 // array为有序数组，target为待查找对象
+// 如果找到target则返回索引，否则返回-1
 function binarySearch(array, target) {
+  // 将变量的含义定义清楚，方便理解和使用~~~
   // 在【left, right】的范围里寻找target
   let left = 0,
     right = array.length - 1
@@ -25,6 +27,9 @@ function binarySearch(array, target) {
 
   return -1
 }
+
+// 通过递归实现二分查找法，递归的思想和非递归的区别？递归性能略差
+// 二分查找法的变种函数： floor和ceil查找元素下上边界索引~~~
 
 module.exports = {
   binarySearch

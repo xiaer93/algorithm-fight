@@ -130,6 +130,87 @@ class MaxHeap {
 // 定义一个最小堆结构
 class MinHeap {}
 
+// fixme: index和reverse索引，减少算法复杂度~~~index减少了交换，reverse减少了修改~~~
+class IndexMaxHeap {
+  constructor () {
+    // data储存数据，index储存索引，count为总数
+    this._data = []
+    this._index = []
+    this._count = 0
+    this._reverse = []
+  }
+  insert (value) {
+    this._data[++this._count] = value
+    this._index[this._count] = this._count
+    this._reverse[this._count] = this._count
+    this._shiftUp(this._count)
+  }
+  extractMax () {
+    let _ret = this._data[this._index[1]]
+    swap(this._index, 1, this._count--)
+    this._reverse[this._index[1]] = 1
+    this._reverse[this._index[this._count--]] = 0
+    this._shiftDown(1)
+
+    return _ret
+  }
+  extractMaxIndex () {
+    let _ret = this._index[1]
+    return _ret
+  }
+  getItem (index) {
+    return this._data[index]
+  }
+  // n + lgn.所以时间复杂度： O(n)
+  change (index, value) {
+    this._data[index] = value
+
+    // 找到 _index[k] === index
+    let _k = this._index.findIndex(t => t === index)
+    this._shiftUp(_k)
+    this._shiftDown(_k)
+  }
+  changeReverse (index, value) {
+    this._data[index] = value
+
+    // 使用reverse减少事件复杂度，现在为O(1)
+    let _k = this._reverse[index]
+    this._shiftUp(_k)
+    this._shiftDown(_k)
+  }
+  isEmpty () {
+    return this._count === 0
+  }
+  // shiftUp和shiftDown对索引index进行交换操作，避免直接处理
+  _shiftUp (k) {
+    let _tmpK = Math.floor( k / 2)
+    while (k > 1 && this._data[this._index[k]] > this._data[this._index[_tmpK]]) {
+      // 交换索引
+      swap(this._index, k, _tmpK)
+      this._reverse[this._index[k]] = k
+      this._reverse[this._index[_tmpK]] = _tmpK
+      k = _tmpK
+      _tmpK = Math.floor( k / 2)
+    }
+  }
+  _shiftDown (k) {
+    while (2 * k <= this._count) {
+      let j = 2 * k
+      if ( j + 1 <= this._count && this._data[this._index[j + 1]] > this._data[this._index[j]]) {
+        j += 1
+      }
+
+      if (this._data[this._index[k]] >= this._data[this._index[j]]){
+        break
+      }
+      swap(this._index, k, j)
+      this._reverse[this._index[k]] = k
+      this._reverse[this._index[j]] = j
+      k = j
+    }
+  }
+}
+
 // 算法复杂度：nlogn
 function heapSort1(array) {
   let _heap = new MaxHeap()
@@ -152,6 +233,7 @@ function heapSort2(array) {
     array[i] = _heap.extractMax()
   }
 }
+
 // 上面2个堆排序，空间复杂度为O(n)。可以在原地堆排序，进行排序，空间复杂度将为O(1)
 // parent(i) = (i-1)/2  leftChild(i) = 2*i + 1, rightChild = 2*i + 2
 function heapSort3(array) {
@@ -182,14 +264,16 @@ function heapSort3(array) {
   }
 }
 
-// let a = new MaxHeap()
-// for(let i = 0; i < 20; i++) {
-//   a.insert(Math.floor(Math.random() * 100))
-// }
-// a.print()
-// while (!a.isEmpty()) {
-//   console.log(a.extractMax())
-// }
+let a = new IndexMaxHeap()
+for(let i = 0; i < 20; i++) {
+  a.insert(Math.floor(Math.random() * 100))
+}
+console.log(a.extractMaxIndex(), a.getItem(a.extractMaxIndex()))
+
+while (!a.isEmpty()) {
+  console.log(a.extractMax())
+}
+
 
 module.exports = {
   heapSort1,
