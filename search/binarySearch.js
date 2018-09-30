@@ -31,6 +31,86 @@ function binarySearch(array, target) {
 // 通过递归实现二分查找法，递归的思想和非递归的区别？递归性能略差
 // 二分查找法的变种函数： floor和ceil查找元素下上边界索引~~~
 
+// 递归实现二分查找法
+function binarySearch2 (array, target) {
+  // [l, r]区间寻找target
+  let l = 0,
+    r = array.length - 1
+
+  return _innerSearch(array, target, l, r)
+}
+function _innerSearch (array, target, left, right) {
+  if (left > right) {
+    return -1
+  }
+
+  let ret
+  let mid = left + Math.floor((right - left) / 2)
+  if (array[mid] < target) {
+    ret = _innerSearch(array, target, mid + 1, right)
+  } else if (array[mid] > target) {
+    ret = _innerSearch(array, target, left, mid - 1)
+  } else {
+    ret = mid
+  }
+
+  return ret
+}
+
+// 二分法变种函数floor，寻找下边界
+function floor (array, target) {
+  // [l,r]区间寻找target
+  let l = 0,
+    r = array.length - 1
+
+  let ret
+  while (l <= r) {
+    let mid = l + Math.floor((r - l) / 2)
+    if (array[mid] < target) {
+      ret = l
+      l = mid + 1
+    } else if (array[mid] > target) {
+      ret = l - 1
+      r = mid - 1
+    } else {
+      while (mid > 0 && array[mid - 1] === target) {
+        mid--
+      }
+      ret = mid
+      break
+    }
+  }
+
+  return ret
+}
+
+// 二分法变种函数floor，寻找下边界
+function ceil (array, target) {
+  // [l,r]区间寻找target
+  let l = 0,
+    r = array.length - 1
+
+  let ret
+  while (l <= r) {
+    let mid = l + Math.floor((r - l) / 2)
+    if (array[mid] < target) {
+      ret = r + 1
+      l = mid + 1
+    } else if (array[mid] > target) {
+      ret = r
+      r = mid - 1
+    } else {
+      while (mid > 0 && array[mid - 1] === target) {
+        mid--
+      }
+      ret = mid
+      break
+    }
+  }
+
+  return ret
+}
+
 module.exports = {
   binarySearch
 }
