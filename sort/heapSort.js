@@ -128,7 +128,54 @@ class MaxHeap {
 }
 
 // 定义一个最小堆结构
-class MinHeap {}
+class MinHeap {
+  constructor () {
+    // 从[1,开始存储数据
+    this._data =[]
+    this._count = 0
+  }
+  insert(value) {
+    this._count += 1
+    this._data[this._count] = value
+    this._shiftUp(this._count)
+  }
+  extractMin() {
+    let retValue = this._data[1]
+    swap(this._data, 1, this._count--)
+    this._shiftDown(1)
+    debugger
+    return retValue
+  }
+  size() {
+    return this._count
+  }
+  isEmpty() {
+    return this._count ===0
+  }
+  _shiftUp(k) {
+    let tmpK = Math.floor(k / 2)
+    while (tmpK > 0 && this._data[tmpK] > this._data[k]) {
+      swap(this._data, tmpK, k)
+      k = tmpK
+      tmpK = Math.floor(k / 2)
+    }
+  }
+  _shiftDown(k) {
+    // 当有左子节点时，才继续进行
+    while ( 2 * k <= this._count) {
+      let  j = 2 * k
+
+      if(j + 1 <= this._count && this._data[j+1] < this._data[j]) {
+        j = j + 1
+      }
+      if (this._data[k] <= this._data[j]){
+        break
+      }
+      swap(this._data, k, j)
+      k = j
+    }
+  }
+}
 
 // fixme: index和reverse索引，减少算法复杂度~~~index减少了交换，reverse减少了修改~~~
 class IndexMaxHeap {
@@ -264,14 +311,14 @@ function heapSort3(array) {
   }
 }
 
-let a = new IndexMaxHeap()
+let a = new MinHeap()
 for(let i = 0; i < 20; i++) {
   a.insert(Math.floor(Math.random() * 100))
 }
-console.log(a.extractMaxIndex(), a.getItem(a.extractMaxIndex()))
+// console.log(a.extractMaxIndex(), a.getItem(a.extractMaxIndex()))
 
 while (!a.isEmpty()) {
-  console.log(a.extractMax())
+  console.log(a.extractMin())
 }
 
 

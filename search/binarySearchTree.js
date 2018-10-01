@@ -79,15 +79,31 @@ class BST {
       this._root = this._removeMax(this._root)
     }
   }
-  // 前驱
-  successor () {
+  // 寻找当前节点的前驱节点
+  successor (key) {
+    let _node = this._findNode(this._root, key)
+    if (_node && _node.left) {
+      return this._finMaxNode(_node.left)
+    } else {
+      return null
+    }
 
   }
-  // 后继
-  predecessor() {
-
+  // 寻找当前节点的后继
+  predecessor(key) {
+    let _node = this._findNode(this._root, key)
+    if (_node && _node.right) {
+      return this._findMinNode(_node.right)
+    } else {
+      return null
+    }
   }
-  // floor
+  // 寻找当前key值得上范围值，floor
+  floor (key) {
+    let _retNode = null
+    this._floor(this._root, key, _retNode)
+    return _retNode
+  }
   // ceil
   // rank 58是排名第几的元素？在节点上新增（以当前节点为根的二叉树节点数量）
   // select 排名第十的元素是谁？
@@ -148,21 +164,21 @@ class BST {
   _preOrder (node) {
     if (node !== null) {
       console.log(node.value)
-      _preOrder(node.left)
-      _preOrder(node.right)
+      this._preOrder(node.left)
+      this._preOrder(node.right)
     }
   }
   _inOrder (node) {
     if (node !== null) {
-      _preOrder(node.left)
+      this._inOrder(node.left)
       console.log(node.value)
-      _preOrder(node.right)
+      this._inOrder(node.right)
     }
   }
   _postOrder (node) {
     if (node !== null) {
-      _preOrder(node.left)
-      _preOrder(node.right)
+      this._postOrder(node.left)
+      this._postOrder(node.right)
       console.log(node.value)
     }
   }
@@ -175,10 +191,31 @@ class BST {
       node = null
     }
   }
+  // 寻找节点，以node为根节点，寻找节点key
+  // 传入node可以为null，传入key必须有效
+  _findNode (node, key) {
+    while (node) {
+      if (node.key === key) {
+        return node
+      } else if (node.key < key) {
+        node = node.right
+      } else {
+        node = node.left
+      }
+    }
+    return null
+  }
   // 寻找最小节点
   _findMinNode(node) {
     while (node.left) {
       node = node.left
+    }
+    return node
+  }
+  // 寻找最大节点，传入node不能为null
+  _finMaxNode (node) {
+    while (node.right) {
+      node = node.right
     }
     return node
   }
@@ -241,6 +278,18 @@ class BST {
       node.value = _minNode.value
       node.right = this._remove(node.right, _minNode.key)
       return node
+    }
+  }
+  // _retNode为对象引用，不断将小于当前key的节点赋值给retNode，从而达到寻找floor上限的目的
+  _floor (node, key, retNode) {
+    if (node) {
+      this._floor(node.left, key, retNode)
+
+      if (node.key <= key) {
+        retNode = node
+      }
+
+      this._floor(node.right, key, retNode)
     }
   }
 }
