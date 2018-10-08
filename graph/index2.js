@@ -11,8 +11,8 @@ let g2 = new DenseGraph(8)
 let tg2 = new ReadGraph(g2, '../graph/textG3.txt')
 
 setTimeout(function () {
-  g1.show()
-  g2.show()
-
+  // g1.show()
+  // g2.show()
+  g2.kruskal()
 
 }, 100)

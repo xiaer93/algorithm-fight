@@ -143,7 +143,6 @@ class MinHeap {
     let retValue = this._data[1]
     swap(this._data, 1, this._count--)
     this._shiftDown(1)
-    debugger
     return retValue
   }
   size() {
@@ -178,12 +177,14 @@ class MinHeap {
 }
 
 // fixme: index和reverse索引，减少算法复杂度~~~index减少了交换，reverse减少了修改~~~
+// 索引堆在进行排序时，不会修改数组data。
 class IndexMaxHeap {
   constructor () {
     // data储存数据，index储存索引，count为总数
     this._data = []
     this._index = []
     this._count = 0
+    // 储存this._index的索引？？？？
     this._reverse = []
   }
   insert (value) {
@@ -250,6 +251,87 @@ class IndexMaxHeap {
       if (this._data[this._index[k]] >= this._data[this._index[j]]){
         break
       }
+      swap(this._index, k, j)
+      this._reverse[this._index[k]] = k
+      this._reverse[this._index[j]] = j
+      k = j
+    }
+  }
+}
+
+// 最小索引堆
+class IndexMinHeap {
+  constructor(compare) {
+    // 数组存储数据结构
+    this._data = []
+    this._index = []    // index[x] = i
+    this._reverse = []  // reverse[i] = x   reverse[index[x]] = x
+    this._count = 0
+    this._leftMinRight = compare
+  }
+  insert(index, value) {
+    ++index
+
+    // data存储数据，index存储data的索引
+    this._data[index] = value
+    this._index[++this._count] = index
+    this._reverse[index] = this._count
+    this._shiftUp(this._count)
+  }
+  extractMin() {
+    let ret = this._data[this._index[1]]
+
+    swap(this._data, 1, this._index[this._count])
+    this._count--
+    this._shiftDown(1)
+
+    return ret
+  }
+  extractMinIndex() {
+    let ret = this._index[1] - 1
+
+    swap(this._data, 1, this._index[this._count])
+    this._count--
+    this._shiftDown(1)
+
+    return ret
+  }
+  getMax() {
+    return this._data[this._index[1]]
+  }
+  getMaxIndex() {
+    return this._index[1] - 1
+  }
+  change(index, value) {
+    this._data[++index] = value
+    this._shiftUp(this._reverse[index])
+    this._shiftDown(this._reverse[index])
+  }
+  size() {
+    return this._count
+  }
+  isEmpty() {
+    return this._count === 0
+  }
+  // 操作索引堆，实际比较data的大小
+  _shiftUp(k) {
+    while (k > 1 && this._leftMinRight(this._data[this._index[k]], this._data[this._index[Math.floor(k / 2)]])) {
+      swap(this._index, k, Math.floor(k / 2))
+      this._reverse[this._index[Math.floor(k / 2)]] = Math.floor(k / 2)
+      this._reverse[this._index[k]] = k
+      k = Math.floor(k / 2)
+    }
+  }
+  _shiftDown(k) {
+    while (2 * k <= this._count) {
+      let j = 2 * k
+      if (j + 1 < this._count && this._leftMinRight(this._count && this._data[this._index[j + 1]], this._data[this._index[j]])) {
+        j += 1
+      }
+      if (this._leftMinRight(this._data[this._index[k]], this._data[this._index[j]])) {
+        break
+      }
+
       swap(this._index, k, j)
       this._reverse[this._index[k]] = k
       this._reverse[this._index[j]] = j

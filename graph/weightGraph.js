@@ -1,6 +1,7 @@
 /**
  * Created by xiaer on 2018/10/1.
  */
+const  {MinHeap, IndexMinHeap, UnionFind} = require('../util/graphHelper')
 // 有权图
 
 // 有权边
@@ -20,7 +21,7 @@ class Edge{
   weight () {
     return this._weight
   }
-  othen (x) {
+  other (x) {
     return x === this._a ? this._b : this._a
   }
   isLessOther(edge) {
@@ -33,6 +34,7 @@ class Graph{
 
   }
 }
+
 // 邻接矩阵---稠密图
 class DenseGraph extends Graph{
   // n为顶点数，m为边数， directed为有向图标志位
@@ -77,11 +79,174 @@ class DenseGraph extends Graph{
   hasEdge (v, w) {
     return this._graph[v][w]
   }
+  /*最小生成树和最短路径算法，对于有向图和无向图均成立！！！*/
+
+  // 如果横切边相同，则可能存在多个最小生成树？？？？
+
   // 最小生成树：v-1条边连接所有顶点，并且权值最小.[针对于带权的无向图，针对连通图]
   // 默认所有图都是连通图
   // 切分定理cut Property：在给定任意切分中，横切边中权值最小的边必然属于最小生成树。。。把图中的节点分为2个部分，就是切分。
-  lazyPrim () {
+  // 时间复杂度 O(ElogE)
+  lazyPrimMST () {
+    let self = this
+    let _pq = new MinHeap((left, right) => left.weight() < right.weight())
+    let _marked = new Array(this.v()).fill(false)
+    // 返回最小生成树
+    let mst = []
+    let mstWeight = 0
 
+    _visite(0)
+    while (!_pq.isEmpty()){
+      let e = _pq.extractMin()
+      // 如果两个节点颜色相同，则处于同一个切分中
+      if (_marked[e.v()] === _marked[e.w()]){
+        continue
+      }
+      mst.push(e)
+      if(!_marked[e.v()]) {
+        _visite(e.v())
+      }else {
+        _visite(e.w())
+      }
+    }
+
+    mstWeight = mst.reduce((total, edge) => {
+      return total + edge.weight()
+    }, 0)
+
+    // 私有函数 访问某个节点
+    function _visite (v) {
+      _marked[v] = true
+
+      // 遍历所有的相邻邻顶点，如果该节点未被访问则将对应的边加入队列
+      for(let e of self.adjIterator(v)) {
+        if (!_marked[e.other(v)]) {
+          _pq.insert(e)
+        }
+      }
+    }
+  }
+  // 时间复杂度O(ElogV)
+  prim() {
+    let self = this
+    let _ipq = new IndexMinHeap()
+    let _marked = new Array(this.v()).fill(false)
+    let _edgeTo = new Array(this.v()).fill(null)  // 存储每个节点最短的横切变
+    // 返回最小生成树
+    let mst = []
+    let mstWeight = 0
+
+    _visit(0)
+    while (!_ipq.isEmpty()) {
+      // 获取最短邻接边
+      let _v = _ipq.extractMinIndex()
+      mst.push(_edgeTo[_v])
+      _visit(_v)
+    }
+
+    mstWeight = mst.reduce((total, edge) => {
+      return total + edge.weight()
+    }, 0)
+    console.log(mst)
+    console.log(mstWeight)
+
+    function _visit (v) {
+      _marked[v] = true
+
+      for(let e of self.adjIterator(v)) {
+        let _w = e.other(v)
+        if (!_marked[_w]) {
+          if (!_edgeTo[_w]) {
+            _ipq.insert(_w, e.weight())
+            _edgeTo[_w] = e
+          } else if (e.weight() < _edgeTo[_w].weight()) {
+            _edgeTo[_w] = e
+            _ipq.change(_w, e.weight())
+          } else {
+            continue
+          }
+        }
+      }
+    }
+  }
+  // 时间复杂度O()
+  // 借助unionFind判断是否为环
+  kruskal() {
+    let _pq = new MinHeap((left, right) => left.weight() < right.weight())
+    let _uf = new UnionFind(this.v())
+
+    let mst = []
+    let mstWeight = 0
+
+    // 将所有边放入最小堆，构建最小堆
+    for(let  i = 0; i < this.v(); ++i) {
+      for(let e of this.adjIterator(i)) {
+        // 避免放入重复边，无向图？
+        if (e.v() < e.w()) {
+          _pq.insert(e)
+        }
+      }
+    }
+
+    // 循环取出最小边，判断是否结成环，如果没有结成环则加入mst
+    while (!_pq.isEmpty()) {
+      let _e = _pq.extractMin()
+      if(_uf.isConnected(_e.v(), _e.w())) {
+        continue
+      }
+      mst.push(_e)
+      _uf.union(_e.v(), _e.w())
+    }
+
+    mstWeight = mst.reduce((total, edge) => {
+      return total + edge.weight()
+    }, 0)
+    console.log(mst)
+    console.log(mstWeight)
+  }
+
+  // 最短路径问题shortestPath，松弛操作是求最短路径的核心
+  // 单源最短路径
+  // 路径规划、工作任务规划
+
+  // 图中不能有负权边，复杂度：Elog(v)
+  // 单元最短路径
+  dijkstra(s) {
+    // 顶点s
+    let s = s
+    // 顶点到其它点最短路径
+    let _distTo = new Array(this.v()).fill(0)
+    // 顶点是否已经被访问
+    let _marked = new Array(this.v()).fill(false)
+    // 顶点最小边是否存在
+    let _from = new Array(this.v()).fill(null)
+
+    let _ipq = new IndexMinHeap()
+
+    _distTo[s] = 0
+    _marked[s] = true
+    _ipq.insert(s, _distTo[s])
+    while (!_ipq.isEmpty()) {
+      let _v = _ipq.extractMinIndex()
+      _marked[_v] = true
+
+      for(let _e of this.adjIterator(_v)) {
+        let _w = _e.other(_v)
+        if(!_marked[_w]) {
+          if (_from[_w] === null || _distTo[_v] + _e.weight() < _distTo[_w]) {
+            _distTo[_w] = _distTo[_v] + _e.weight()
+            _from[_w] = _e
+            if(_ipq.contain(_w)) {
+              _ipq.change(_w, _distTo[_w])
+            } else {
+              _ipq.insert(_w, _distTo[_w])
+            }
+          }
+        }
+      }
+    }
+
+    // 最短路径，是否连通
   }
 
   // 时间复杂度： O(v)。遍历了所有顶点
