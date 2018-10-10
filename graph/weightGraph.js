@@ -211,17 +211,18 @@ class DenseGraph extends Graph{
 
   // 图中不能有负权边，复杂度：Elog(v)
   // 单元最短路径
+  // 每次处理尚未marked的最短路径的节点。则最短路劲的节点v一定为单源最短路径，因为即使有其他路径可以到达点v，但是必须绕道其他节点必然增加路径长度。
   dijkstra(s) {
     // 顶点s
     let s = s
     // 顶点到其它点最短路径
     let _distTo = new Array(this.v()).fill(0)
-    // 顶点是否已经被访问
+    // 顶点是否已经被迭代器遍历
     let _marked = new Array(this.v()).fill(false)
-    // 顶点最小边是否存在
+    // 顶点最小边是否存在---最短路径是who？即
     let _from = new Array(this.v()).fill(null)
 
-    let _ipq = new IndexMinHeap()
+    let _ipq = new IndexMinHeap((left, right) => left < right)
 
     _distTo[s] = 0
     _marked[s] = true
@@ -230,6 +231,7 @@ class DenseGraph extends Graph{
       let _v = _ipq.extractMinIndex()
       _marked[_v] = true
 
+      // 松弛操作
       for(let _e of this.adjIterator(_v)) {
         let _w = _e.other(_v)
         if(!_marked[_w]) {
@@ -248,6 +250,62 @@ class DenseGraph extends Graph{
 
     // 最短路径，是否连通
   }
+
+  // 最短路径处理负权边
+  // 拥有负权环的图，没有最短路径。。。
+  // 前提条件，图中不能有负权环，该算法可以判断图中是否有负权环
+  // 时间复杂度O(ev)
+
+  // 从一个点到另一个点的最短路径，最多经过所有的v个顶点，有v-1条边。否则存在负权环
+  // 对所有点进行v-1次松弛操作
+  bellmanFord(s) {
+    let _distTo = new Array(this.v()).fill(0)
+    let _from = new Array(this.v()).fill(null)
+    let _hasNegativeCycle = false
+
+    for(let pass = 1; pass < this.v(); ++pass) {
+      for(let i = 0; i < this.v(); ++i) {
+        for(let e of this.adjIterator(i)) {
+          // 多次松弛操作，e.w节点是否有最短边，是否有松弛最短边
+          if(!_from[e.w()] || _distTo[e.v()] + e.weight() < _distTo[e.w()]) {
+            _distTo[e.w()] = _distTo[e.v()] + e.weight()
+            _from[e.w()] = e
+          }
+        }
+      }
+    }
+
+    // 在进行一次松弛操作，如果还可以松弛则包含负权环。
+    _hasNegativeCycle = _checkhasNegativeCycle()
+
+    // 检查是否包含负权环
+    function _checkhasNegativeCycle () {
+      for(let pass = 1; pass < this.v(); ++pass) {
+        for(let i = 0; i < this.v(); ++i) {
+          for(let e of this.adjIterator(i)) {
+            // 多次松弛操作，e.w节点是否有最短边，是否有松弛最短边
+            if(!_from[e.w()] || _distTo[e.v()] + e.weight() < _distTo[e.w()]) {
+              return true
+            }
+          }
+        }
+      }
+      return false
+    }
+    //hasPathTo, shortestPath,negativeCycle
+
+  }
+
+  // 最短路径的补充；1、distTo[w] = 正无穷；2、queue-based bellman-ford优化算法
+  // dijkstra 无负权边，有向无向均可，O(ElogV)
+  // bellman-ford 无负权环，有向图，O(VE)
+  // 利用拓扑排序 有向无环图DAG，有向图，O(V + E)
+  // 所有对最短路径算法，Floyed，处理无负权环的图，O(V^3)
+  // 最长路径算法？？？
+
+
+
+
 
   // 时间复杂度： O(v)。遍历了所有顶点
   // 返回有效的边，Edge实例
