@@ -4,7 +4,7 @@
 const fs = require('fs')
 const readline = require('readline')
 
-// ½»»»Êı×é
+// äº¤æ¢æ•°ç»„
 function swap(array, left, right) {
   let tmp = array[left]
   array[left] = array[right]
@@ -35,7 +35,7 @@ function testGraph(graphClass) {
 
 class ReadGraph {
   constructor(graph, filename) {
-    // µãºÍ±ßµÄÊıÁ¿
+    // ç‚¹å’Œè¾¹çš„æ•°é‡
     let _v, _e
     let _fileStream = this._readFile(filename, (index, text) => {
       let _text = text.split(' ').map(t => parseFloat(t))
@@ -62,10 +62,10 @@ class ReadGraph {
 
 class MinHeap {
   constructor (compare) {
-    // ´Ó[1,¿ªÊ¼´æ´¢Êı¾İ
+    // ä»[1,å¼€å§‹å­˜å‚¨æ•°æ®
     this._data =[]
     this._count = 0
-    // ±È½Ïº¯Êı£¬×ó±ß < ÓÒ±ß
+    // æ¯”è¾ƒå‡½æ•°ï¼Œå·¦è¾¹ < å³è¾¹
     this._leftMinRight = compare || ((left, right) => left < right)
   }
   insert(value) {
@@ -94,7 +94,7 @@ class MinHeap {
     }
   }
   _shiftDown(k) {
-    // µ±ÓĞ×ó×Ó½ÚµãÊ±£¬²Å¼ÌĞø½øĞĞ
+    // å½“æœ‰å·¦å­èŠ‚ç‚¹æ—¶ï¼Œæ‰ç»§ç»­è¿›è¡Œ
     while ( 2 * k <= this._count) {
       let  j = 2 * k
 
@@ -110,10 +110,10 @@ class MinHeap {
   }
 }
 
-// ×îĞ¡Ë÷Òı¶Ñ
+// æœ€å°ç´¢å¼•å †
 class IndexMinHeap {
   constructor(compare) {
-    // Êı×é´æ´¢Êı¾İ½á¹¹
+    // æ•°ç»„å­˜å‚¨æ•°æ®ç»“æ„
     this._data = []
     this._index = []    // index[x] = i
     this._reverse = []  // reverse[i] = x   reverse[index[x]] = x
@@ -123,7 +123,7 @@ class IndexMinHeap {
   insert(index, value) {
     ++index
 
-    // data´æ´¢Êı¾İ£¬index´æ´¢dataµÄË÷Òı
+    // dataå­˜å‚¨æ•°æ®ï¼Œindexå­˜å‚¨dataçš„ç´¢å¼•
     this._data[index] = value
     this._index[++this._count] = index
     this._reverse[index] = this._count
@@ -168,7 +168,7 @@ class IndexMinHeap {
   isEmpty() {
     return this._count === 0
   }
-  // ²Ù×÷Ë÷Òı¶Ñ£¬Êµ¼Ê±È½ÏdataµÄ´óĞ¡
+  // æ“ä½œç´¢å¼•å †ï¼Œå®é™…æ¯”è¾ƒdataçš„å¤§å°
   _shiftUp(k) {
     while (k > 1 && this._leftMinRight(this._data[this._index[k]], this._data[this._index[Math.floor(k / 2)]])) {
       swap(this._index, k, Math.floor(k / 2))
@@ -203,7 +203,7 @@ class UnionFind{
   }
   find (p) {
     while (p !== this._parent[p]) {
-      // Ö´ĞĞÂ·¾¶Ñ¹Ëõ£¬½«¶à²ã¼¶Ê÷½µµÍ²ã¼¶
+      // æ‰§è¡Œè·¯å¾„å‹ç¼©ï¼Œå°†å¤šå±‚çº§æ ‘é™ä½å±‚çº§
       this._parent[p] = this._parent[this._parent[p]]
       p = this._parent[p]
     }

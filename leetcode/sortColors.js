@@ -3,8 +3,8 @@
  */
 let {swap} = require('../util/sortHelper')
 
-// ¼ÆÊıÅÅĞò£¬Í³¼Æ0£¬1£¬2µÄ¸öÊı
-// Ê±¼ä¸´ÔÓ¶È£ºO(n)£¬¿Õ¼ä¸´ÔÓ¶È£ºO(1)
+// è®¡æ•°æ’åºï¼Œç»Ÿè®¡0ï¼Œ1ï¼Œ2çš„ä¸ªæ•°
+// æ—¶é—´å¤æ‚åº¦ï¼šO(n)ï¼Œç©ºé—´å¤æ‚åº¦ï¼šO(1)
 function sortColor(array) {
   let count = [0,0,0]
   for(let i = 0,len = array.length; i < len; ++i) {
@@ -20,15 +20,15 @@ function sortColor(array) {
   }
 }
 
-// 3Â·¿ìËÙÅÅĞòËã·¨£¬Ö»½øĞĞÁËÒ»´Î±éÀú~~~
-// Ê±¼ä¸´ÔÓ¶È£ºO(n)£¬¿Õ¼ä¸´ÔÓ¶È£ºO(1)
+// 3è·¯å¿«é€Ÿæ’åºç®—æ³•ï¼Œåªè¿›è¡Œäº†ä¸€æ¬¡éå†~~~
+// æ—¶é—´å¤æ‚åº¦ï¼šO(n)ï¼Œç©ºé—´å¤æ‚åº¦ï¼šO(1)
 function sortColor2(array) {
-  // [0£¬zero]Îª0£¬ [zero + 1, two - 1]Îª1, [two, n-1]Îª2
+  // [0ï¼Œzero]ä¸º0ï¼Œ [zero + 1, two - 1]ä¸º1, [two, n-1]ä¸º2
   let zero = -1,
     two = array.length
 
   for (let i = 0; i < two; ) {
-    // Ñ­»·²»±äÁ¿
+    // å¾ªç¯ä¸å˜é‡
     if (array[i] === 1) {
       i++
     } else if (array[i] === 2) {

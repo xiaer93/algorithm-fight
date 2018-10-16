@@ -1,7 +1,7 @@
 /**
  * Created by xiaer on 2018/9/24.
  */
-// Éú³ÉËæ»úÊı×é
+// ç”Ÿæˆéšæœºæ•°ç»„
 function generateRandomArray(n, rangL, rangR) {
   let retArray = []
   for(let i = 0; i < n; ++i) {
@@ -16,7 +16,7 @@ function generateNearlyOrderArray(n, swapTimes) {
     retArray[i] = i
   }
 
-  // ½»»¥£¬´´½¨½Ó½üÎªÓĞĞòµÄÊı×é
+  // äº¤äº’ï¼Œåˆ›å»ºæ¥è¿‘ä¸ºæœ‰åºçš„æ•°ç»„
   for (let i = 0; i < swapTimes; ++i) {
     let left = Math.floor(Math.random() * n)
     let right = Math.floor(Math.random() * n)
@@ -25,17 +25,17 @@ function generateNearlyOrderArray(n, swapTimes) {
 
   return retArray
 }
-// ´òÓ¡Êı×é
+// æ‰“å°æ•°ç»„
 function printArray(array) {
   console.log(...array)
 }
-// ½»»»Êı×é
+// äº¤æ¢æ•°ç»„
 function swap(array, left, right) {
   let tmp = array[left]
   array[left] = array[right]
   array[right] = tmp
 }
-// ²âÊÔËã·¨ĞÔÄÜ
+// æµ‹è¯•ç®—æ³•æ€§èƒ½
 function testSort(sortFunc, array) {
   let startTime, endTime
   startTime = +new Date()
@@ -46,7 +46,7 @@ function testSort(sortFunc, array) {
 
   isSort && console.log(sortFunc.name + ':' + (endTime - startTime) + 'ms')
 }
-// ¼ìÑéÊı×éÊÇ·ñÅÅĞò³É¹¦
+// æ£€éªŒæ•°ç»„æ˜¯å¦æ’åºæˆåŠŸ
 function isSorted(array) {
   for(let i = 0, len = array.length - 1; i < len; ++i) {
     if (array[i] > array[i+1]) {
@@ -55,11 +55,11 @@ function isSorted(array) {
   }
   return true
 }
-// Éî¶È¿½±´Êı×é
+// æ·±åº¦æ‹·è´æ•°ç»„
 function copyArray(array) {
   return JSON.parse(JSON.stringify(array))
 }
-// ²åÈëÅÅĞò
+// æ’å…¥æ’åº
 function insertSort(array, left, right) {
   for(let i = 1; i <= right; ++i) {
     let tmpNumber = array[i]

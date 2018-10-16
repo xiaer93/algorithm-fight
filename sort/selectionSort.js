@@ -3,10 +3,10 @@
  */
 let {swap} = require('../util/sortHelper')
 
-// Ñ¡ÔñÅÅĞò£¨½«¼«Öµ·ÅÔÚ×îÇ°Ãæ£©
+// é€‰æ‹©æ’åºï¼ˆå°†æå€¼æ”¾åœ¨æœ€å‰é¢ï¼‰
 function selectionSort(array) {
   for (let i = 0, len = array.length; i < len; ++i) {
-    // Ñ°ÕÒ[I£¬n]Çø¼äÀïµÄ×îĞ¡Öµ
+    // å¯»æ‰¾[Iï¼Œn]åŒºé—´é‡Œçš„æœ€å°å€¼
     let minIndex = i
     for(let j = i + 1; j < len; ++j) {
       if (array[j] < array[minIndex]) {

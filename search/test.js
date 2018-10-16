@@ -8,17 +8,17 @@ fs.readFile('./bible.txt', function (err, data) {
   if (err) {
     console.log(err)
   } else {
-    // data为数据流
+    // data涓烘暟鎹祦
     let text = data.toString()
 
-    // 统计单词数量
+    // 缁熻鍗曡瘝鏁伴噺
     let bst = new BST()
-    // 文本分词
+    // 鏂囨湰鍒嗚瘝
     let start = 0,
       length = 0
 
     while (start < text.length) {
-      // 获取单词
+      // 鑾峰彇鍗曡瘝
       while (start + length < text.length && isAbc(text[start + length])) {
         length++
       }
@@ -26,7 +26,7 @@ fs.readFile('./bible.txt', function (err, data) {
       let _count = bst.search(_word) || 0
       bst.insert(_word, ++_count)
 
-      // 跳过非字母，并初始化变量
+      // 璺宠繃闈炲瓧姣嶏紝骞跺垵濮嬪寲鍙橀噺
       while (start + length < text.length && !isAbc(text[start + length])) {
         length++
       }
@@ -35,7 +35,7 @@ fs.readFile('./bible.txt', function (err, data) {
       length = 0
     }
 
-    // 输出
+    // 杈撳嚭
     console.log(bst.search('of'))
   }
 })

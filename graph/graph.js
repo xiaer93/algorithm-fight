@@ -2,19 +2,19 @@
  * Created by xiaer on 2018/10/1.
  */
 
-// ÁÚ½Ó¾ØÕóºÍÁÚ½Ó±í
-// ÁÚ½Ó±íÊÊºÏÏ¡ÊèÍ¼£¬ÁÚ½Ó¾ØÕóÊÊºÏ³íÃÜÍ¼
-// ±ßµÄÊıÁ¿Ô¶Ô¶ÉÙÓÚµãÓ¦¸ÃÓĞµÄ±ßÊı¡£¡£¡£ÍêÈ«Í¼£¨Ã¿¸öµãÖ®¼ä¶¼´æÔÚ±ß£©
+// é‚»æ¥çŸ©é˜µå’Œé‚»æ¥è¡¨
+// é‚»æ¥è¡¨é€‚åˆç¨€ç–å›¾ï¼Œé‚»æ¥çŸ©é˜µé€‚åˆç¨ å¯†å›¾
+// è¾¹çš„æ•°é‡è¿œè¿œå°‘äºç‚¹åº”è¯¥æœ‰çš„è¾¹æ•°ã€‚ã€‚ã€‚å®Œå…¨å›¾ï¼ˆæ¯ä¸ªç‚¹ä¹‹é—´éƒ½å­˜åœ¨è¾¹ï¼‰
 
 class Graph {
   constructor () {
     this._visited = null
-    // Á¬Í¨·ÖÁ¿
+    // è¿é€šåˆ†é‡
     this._cCount = 0
-    // ½ÚµãÏàÁ¬ĞÔ
+    // èŠ‚ç‚¹ç›¸è¿æ€§
     this._id = null
   }
-  // ¼ÆËãÁ¬Í¨·ÖÁ¿
+  // è®¡ç®—è¿é€šåˆ†é‡
   init () {
     this._visited = new Array(this.v()).fill(false)
     this._cCount = 0
@@ -35,13 +35,13 @@ class Graph {
     return this._id[v] === this._id[w]
   }
   v () {
-    throw new Error('±ØĞë±»×ÓÀàÖØĞ´')
+    throw new Error('å¿…é¡»è¢«å­ç±»é‡å†™')
   }
   e () {
-    throw new Error('±ØĞë±»×ÓÀàÖØĞ´')
+    throw new Error('å¿…é¡»è¢«å­ç±»é‡å†™')
   }
   *adjIterator() {
-    throw new Error('±ØĞë±»×ÓÀàÖØĞ´')
+    throw new Error('å¿…é¡»è¢«å­ç±»é‡å†™')
   }
   _dfs (v) {
     this._visited[v] = true
@@ -57,9 +57,9 @@ class Graph {
   }
 }
 
-// ÁÚ½Ó¾ØÕó---³íÃÜÍ¼
+// é‚»æ¥çŸ©é˜µ---ç¨ å¯†å›¾
 class DenseGraph extends Graph{
-  // nÎª¶¥µãÊı£¬ directedÎªÓĞÏòÍ¼±êÖ¾Î»
+  // nä¸ºé¡¶ç‚¹æ•°ï¼Œ directedä¸ºæœ‰å‘å›¾æ ‡å¿—ä½
   constructor(n, directed = false) {
     super()
     this._n = n
@@ -83,11 +83,11 @@ class DenseGraph extends Graph{
       console.log(_printStr)
     })
   }
-  // Éî¶ÈÓÅÏÈ±éÀú£¬³£¼ûÓ¦ÓÃ£ºÁ¬Í¨·ÖÁ¿¼ÆËã
+  // æ·±åº¦ä¼˜å…ˆéå†ï¼Œå¸¸è§åº”ç”¨ï¼šè¿é€šåˆ†é‡è®¡ç®—
 
 
-  // ¹ã¶ÈÓÅÏÈ±éÀú
-  // ÔÚvw¼ÓÒ»Ìõ±ß
+  // å¹¿åº¦ä¼˜å…ˆéå†
+  // åœ¨vwåŠ ä¸€æ¡è¾¹
   addEdge(v, w) {
     if (this.hasEdge(v, w)) {
       return
@@ -98,13 +98,13 @@ class DenseGraph extends Graph{
       this._graph[w][v] = true
     }
 
-    // ÓĞÏòÍ¼ÎŞÏòÍ¼£¬±ß²»×öÇø·Ö£¿
+    // æœ‰å‘å›¾æ— å‘å›¾ï¼Œè¾¹ä¸åšåŒºåˆ†ï¼Ÿ
     this._m += 1
   }
   hasEdge (v, w) {
     return this._graph[v][w]
   }
-  // Ê±¼ä¸´ÔÓ¶È£º O(v)¡£±éÀúÁËËùÓĞ¶¥µã
+  // æ—¶é—´å¤æ‚åº¦ï¼š O(v)ã€‚éå†äº†æ‰€æœ‰é¡¶ç‚¹
   *adjIterator(v) {
     let _flagV = this._graph[v]
     for(let i = 0, len = _flagV.length; i < len; ++i){
@@ -115,15 +115,15 @@ class DenseGraph extends Graph{
   }
 }
 
-// ÁÚ½Ó±í
+// é‚»æ¥è¡¨
 class SparseGraph extends Graph{
   constructor(n, directed = false) {
     super()
     this._n = n
     this._m = 0
     this._directed = directed
-    // ÁÚ½Ó±í»¹¿ÉÒÔ½èÖúÏòÁ¿±íÊ¾£¬ÔÚÉ¾³ı½ÚµãºÍ±ßÉÏĞ§ÂÊ¸üºÃ
-    // fillÌî³äÊı×é£¬Ôò¶ÔÏóÖ¸ÏòÏàÍ¬
+    // é‚»æ¥è¡¨è¿˜å¯ä»¥å€ŸåŠ©å‘é‡è¡¨ç¤ºï¼Œåœ¨åˆ é™¤èŠ‚ç‚¹å’Œè¾¹ä¸Šæ•ˆç‡æ›´å¥½
+    // fillå¡«å……æ•°ç»„ï¼Œåˆ™å¯¹è±¡æŒ‡å‘ç›¸åŒ
     this._graph = new Array(n).fill(0).map(t => [])
   }
   v () {
@@ -141,29 +141,29 @@ class SparseGraph extends Graph{
       console.log(_printStr)
     })
   }
-  // Îª±ÜÃâÌí¼Ó±ßÊ±¼ä¸´ÔÓ¶È¹ı¸ß£¬ÔÚ´Ë²Ù×÷ÖĞÔÊĞíÆ½ĞĞ±ä£¬²»½øĞĞhasEdgeÅĞ¶Ï£»
-  // Í¨³£´¦ÀíÆ½ĞĞ±ß²Ù×÷£¬ÔÚËùÓĞ±ßÌí¼ÓÍê³Éºó£¬Í³Ò»´¦ÀíÆ½ĞĞ±ß
+  // ä¸ºé¿å…æ·»åŠ è¾¹æ—¶é—´å¤æ‚åº¦è¿‡é«˜ï¼Œåœ¨æ­¤æ“ä½œä¸­å…è®¸å¹³è¡Œå˜ï¼Œä¸è¿›è¡ŒhasEdgeåˆ¤æ–­ï¼›
+  // é€šå¸¸å¤„ç†å¹³è¡Œè¾¹æ“ä½œï¼Œåœ¨æ‰€æœ‰è¾¹æ·»åŠ å®Œæˆåï¼Œç»Ÿä¸€å¤„ç†å¹³è¡Œè¾¹
   addEdge(v, w) {
     this._graph[v].push(w)
 
-    // ±ÜÃâ×Ô»·±ß
+    // é¿å…è‡ªç¯è¾¹
     if (v !== w && !this._directed) {
       this._graph[w].push(v)
     }
     this._m += 1
   }
-  // Ê±¼ä¸´ÔÓ¶ÈO(n)
+  // æ—¶é—´å¤æ‚åº¦O(n)
   hasEdge (v, w) {
     return this._graph[v].indexOf(w) !== 0
   }
-  // É¾³ıÆ½ĞĞ±ß
+  // åˆ é™¤å¹³è¡Œè¾¹
   removeEdg() {
     this._graph = this._graph.map(t => {
       return [...new Set(t)]
     })
   }
-  // Ê±¼ä¸´ÔÓ¶È£ºO(E)£¬±éÀú¸Ã½ÚµãËùÓĞµÄ±ß
-  // ·µ»ØÄ³¸ö½ÚµãµÄËùÓĞÁÚ½Ó½Úµã
+  // æ—¶é—´å¤æ‚åº¦ï¼šO(E)ï¼Œéå†è¯¥èŠ‚ç‚¹æ‰€æœ‰çš„è¾¹
+  // è¿”å›æŸä¸ªèŠ‚ç‚¹çš„æ‰€æœ‰é‚»æ¥èŠ‚ç‚¹
   *adjIterator(v) {
     let _retV = this._graph[v]
     for(let i = 0, len = _retV.length; i < len; ++i){

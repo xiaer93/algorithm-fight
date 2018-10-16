@@ -1,25 +1,25 @@
 /**
  * Created by xiaer on 2018/9/25.
  */
-// ¶ş·Ö·¨Ê±¼ä¸´ÔÓ¶È£ºO(lg2 n)  N*£¨1/2£©^x=1£»Ôòx=logn,µ×ÊıÊÇ2
-// arrayÎªÓĞĞòÊı×é£¬targetÎª´ı²éÕÒ¶ÔÏó
-// Èç¹ûÕÒµ½targetÔò·µ»ØË÷Òı£¬·ñÔò·µ»Ø-1
+// äºŒåˆ†æ³•æ—¶é—´å¤æ‚åº¦ï¼šO(lg2 n)  N*ï¼ˆ1/2ï¼‰^x=1ï¼›åˆ™x=logn,åº•æ•°æ˜¯2
+// arrayä¸ºæœ‰åºæ•°ç»„ï¼Œtargetä¸ºå¾…æŸ¥æ‰¾å¯¹è±¡
+// å¦‚æœæ‰¾åˆ°targetåˆ™è¿”å›ç´¢å¼•ï¼Œå¦åˆ™è¿”å›-1
 function binarySearch(array, target) {
-  // ½«±äÁ¿µÄº¬Òå¶¨ÒåÇå³ş£¬·½±ãÀí½âºÍÊ¹ÓÃ~~~
-  // ÔÚ¡¾left, right¡¿µÄ·¶Î§ÀïÑ°ÕÒtarget
+  // å°†å˜é‡çš„å«ä¹‰å®šä¹‰æ¸…æ¥šï¼Œæ–¹ä¾¿ç†è§£å’Œä½¿ç”¨~~~
+  // åœ¨ã€left, rightã€‘çš„èŒƒå›´é‡Œå¯»æ‰¾target
   let left = 0,
     right = array.length - 1
 
   //
   while (left <= right) {
-    // Ñ­»·²»±äÁ¿£¬ÒªÊ¼ÖÕÎ¬»¤Ñ­»·²»±äÁ¿~~~
-    // Ñ­»·ÖĞºÍÑ­»·½áÊøÊ±Ñ­»·²»±äÁ¿ºÍÑ­»·ÖÕÖ¹Ìõ¼ş±ØĞëÍ¬Ê±³ÉÁ¢¡£
+    // å¾ªç¯ä¸å˜é‡ï¼Œè¦å§‹ç»ˆç»´æŠ¤å¾ªç¯ä¸å˜é‡~~~
+    // å¾ªç¯ä¸­å’Œå¾ªç¯ç»“æŸæ—¶å¾ªç¯ä¸å˜é‡å’Œå¾ªç¯ç»ˆæ­¢æ¡ä»¶å¿…é¡»åŒæ—¶æˆç«‹ã€‚
     // let mid = Math.floor((left + right) / 2)
-    let mid = Math.floor((right - left) / 2) + left //±ÜÃâÊı×Ö¼«´óÊ±Òç³ö´íÎó~~~
+    let mid = Math.floor((right - left) / 2) + left //é¿å…æ•°å­—æå¤§æ—¶æº¢å‡ºé”™è¯¯~~~
     if (array[mid] < target) {
-      left = mid + 1  // targetÔÚ[mid + 1, r]ÖĞ~~~
+      left = mid + 1  // targetåœ¨[mid + 1, r]ä¸­~~~
     } else if (array[mid] > target) {
-      right = mid - 1 // targetÔÚ[l, mid - 1]ÖĞ~~~
+      right = mid - 1 // targetåœ¨[l, mid - 1]ä¸­~~~
     } else {
       return mid
     }
@@ -28,12 +28,12 @@ function binarySearch(array, target) {
   return -1
 }
 
-// Í¨¹ıµİ¹éÊµÏÖ¶ş·Ö²éÕÒ·¨£¬µİ¹éµÄË¼ÏëºÍ·Çµİ¹éµÄÇø±ğ£¿µİ¹éĞÔÄÜÂÔ²î
-// ¶ş·Ö²éÕÒ·¨µÄ±äÖÖº¯Êı£º floorºÍceil²éÕÒÔªËØÏÂÉÏ±ß½çË÷Òı~~~
+// é€šè¿‡é€’å½’å®ç°äºŒåˆ†æŸ¥æ‰¾æ³•ï¼Œé€’å½’çš„æ€æƒ³å’Œéé€’å½’çš„åŒºåˆ«ï¼Ÿé€’å½’æ€§èƒ½ç•¥å·®
+// äºŒåˆ†æŸ¥æ‰¾æ³•çš„å˜ç§å‡½æ•°ï¼š floorå’ŒceilæŸ¥æ‰¾å…ƒç´ ä¸‹ä¸Šè¾¹ç•Œç´¢å¼•~~~
 
-// µİ¹éÊµÏÖ¶ş·Ö²éÕÒ·¨
+// é€’å½’å®ç°äºŒåˆ†æŸ¥æ‰¾æ³•
 function binarySearch2 (array, target) {
-  // [l, r]Çø¼äÑ°ÕÒtarget
+  // [l, r]åŒºé—´å¯»æ‰¾target
   let l = 0,
     r = array.length - 1
 
@@ -57,9 +57,9 @@ function _innerSearch (array, target, left, right) {
   return ret
 }
 
-// ¶ş·Ö·¨±äÖÖº¯Êıfloor£¬Ñ°ÕÒÏÂ±ß½ç
+// äºŒåˆ†æ³•å˜ç§å‡½æ•°floorï¼Œå¯»æ‰¾ä¸‹è¾¹ç•Œ
 function floor (array, target) {
-  // [l,r]Çø¼äÑ°ÕÒtarget
+  // [l,r]åŒºé—´å¯»æ‰¾target
   let l = 0,
     r = array.length - 1
 
@@ -84,9 +84,9 @@ function floor (array, target) {
   return ret
 }
 
-// ¶ş·Ö·¨±äÖÖº¯Êıfloor£¬Ñ°ÕÒÏÂ±ß½ç
+// äºŒåˆ†æ³•å˜ç§å‡½æ•°floorï¼Œå¯»æ‰¾ä¸‹è¾¹ç•Œ
 function ceil (array, target) {
-  // [l,r]Çø¼äÑ°ÕÒtarget
+  // [l,r]åŒºé—´å¯»æ‰¾target
   let l = 0,
     r = array.length - 1
 

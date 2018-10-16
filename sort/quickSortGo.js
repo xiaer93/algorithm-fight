@@ -2,8 +2,8 @@
  * Created by xiaer on 2018/9/26.
  */
 let {swap} = require('../util/sortHelper')
-// Õë¶ÔÓÚ´óÁ¿ÖØ¸´Êı×é£¬¿ìËÙÅÅĞòĞ§ÂÊÓÖ»ØÍËÁË~~~
-// ¶Ôpartition½øĞĞÓÅ»¯£¬Ê¹ÓÃË«Ö¸Õë£¬±ÜÃâ×óÓÒ·ÖÆ¬Ê±£¬Ä³Ò»±ßÄÚÈİ¹ı¶àÔì³É²»¾ùºâ¡£ arr[l+1, i -1] <= v arr[j + 1, r] >= v
+// é’ˆå¯¹äºå¤§é‡é‡å¤æ•°ç»„ï¼Œå¿«é€Ÿæ’åºæ•ˆç‡åˆå›é€€äº†~~~
+// å¯¹partitionè¿›è¡Œä¼˜åŒ–ï¼Œä½¿ç”¨åŒæŒ‡é’ˆï¼Œé¿å…å·¦å³åˆ†ç‰‡æ—¶ï¼ŒæŸä¸€è¾¹å†…å®¹è¿‡å¤šé€ æˆä¸å‡è¡¡ã€‚ arr[l+1, i -1] <= v arr[j + 1, r] >= v
 function quickSortGo(array) {
   _quickSortGo(array, 0, array.length - 1)
 }
@@ -13,7 +13,7 @@ function _quickSortGo(array, left, right) {
     return
   }
 
-  // ·µ»ØË÷Òıp£¬Ê¹µÃarr[left, p - 1] Ğ¡ÓÚarr[p], arr[p + 1, right] ´óÓÚarr[p]
+  // è¿”å›ç´¢å¼•pï¼Œä½¿å¾—arr[left, p - 1] å°äºarr[p], arr[p + 1, right] å¤§äºarr[p]
   let p = _partition2(array, left, right)
   _quickSortGo(array, left, p - 1)
   _quickSortGo(array, p + 1, right)

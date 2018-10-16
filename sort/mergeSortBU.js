@@ -1,25 +1,25 @@
 /**
  * Created by xiaer on 2018/9/26.
  */
-// ×Ôµ×ÏòÉÏµÄ¹é²¢ÅÅĞò
-// ¶ÔÁ´±í½øĞĞÅÅĞòºÜÓĞÓÃ£¿
+// è‡ªåº•å‘ä¸Šçš„å½’å¹¶æ’åº
+// å¯¹é“¾è¡¨è¿›è¡Œæ’åºå¾ˆæœ‰ç”¨ï¼Ÿ
 function mergeSortBU (array) {
   for(let sz = 1, len = array.length; sz <= len; sz += sz) {
     for(let i = 0; i + sz < len; i += sz + sz) {
-      // ¶Ô[i, i + sz - 1]ºÍ[i + sz, i + 2*sz - 1]½øĞĞ¹é²¢ÅÅĞò
+      // å¯¹[i, i + sz - 1]å’Œ[i + sz, i + 2*sz - 1]è¿›è¡Œå½’å¹¶æ’åº
       _merge(array, i, i + sz - 1, Math.min(i + sz + sz - 1, len - 1))
     }
   }
 }
 
-// ¶Ô[left, right]Çø¼äÊı×Ö½øĞĞÅÅĞò
+// å¯¹[left, right]åŒºé—´æ•°å­—è¿›è¡Œæ’åº
 function _merge (array, left, mid, right) {
-  // Ç°±Õºó±ÕÇø¼ä
+  // å‰é—­åé—­åŒºé—´
   let i = left,
     j = mid + 1,
     k = left
 
-  // ¸¨Öú¿Õ¼ä£¬ÕâÒ²ÊÇ¹é²¢ÅÅĞòµÄ×î´óÈ±µã~~~
+  // è¾…åŠ©ç©ºé—´ï¼Œè¿™ä¹Ÿæ˜¯å½’å¹¶æ’åºçš„æœ€å¤§ç¼ºç‚¹~~~
   let tmpArray = []
   while(i <= mid && j <= right) {
     if(array[i] < array[j]) {

@@ -2,9 +2,9 @@
  * Created by xiaer on 2018/10/1.
  */
 const  {MinHeap, IndexMinHeap, UnionFind} = require('../util/graphHelper')
-// ÓĞÈ¨Í¼
+// æœ‰æƒå›¾
 
-// ÓĞÈ¨±ß
+// æœ‰æƒè¾¹
 class Edge{
   constructor(a, b, weight){
     this._a = a
@@ -35,9 +35,9 @@ class Graph{
   }
 }
 
-// ÁÚ½Ó¾ØÕó---³íÃÜÍ¼
+// é‚»æ¥çŸ©é˜µ---ç¨ å¯†å›¾
 class DenseGraph extends Graph{
-  // nÎª¶¥µãÊı£¬mÎª±ßÊı£¬ directedÎªÓĞÏòÍ¼±êÖ¾Î»
+  // nä¸ºé¡¶ç‚¹æ•°ï¼Œmä¸ºè¾¹æ•°ï¼Œ directedä¸ºæœ‰å‘å›¾æ ‡å¿—ä½
   constructor(n, directed = false) {
     super()
     this._n = n
@@ -68,7 +68,7 @@ class DenseGraph extends Graph{
       this._m -= 1
     }
 
-    // Èç¹û±ßÒÑ¾­´æÔÚ£¬ÔòĞŞ¸ÄÔ­Ê¼±ßÈ¨Öµ¡£·ñÔòĞÂ½¨Ò»¸ö±ß
+    // å¦‚æœè¾¹å·²ç»å­˜åœ¨ï¼Œåˆ™ä¿®æ”¹åŸå§‹è¾¹æƒå€¼ã€‚å¦åˆ™æ–°å»ºä¸€ä¸ªè¾¹
     this._graph[v][w] = new Edge(v, w, weight)
     if (!this._directed) {
       this._graph[w][v] = new Edge(w, v, weight)
@@ -79,26 +79,26 @@ class DenseGraph extends Graph{
   hasEdge (v, w) {
     return this._graph[v][w]
   }
-  /*×îĞ¡Éú³ÉÊ÷ºÍ×î¶ÌÂ·¾¶Ëã·¨£¬¶ÔÓÚÓĞÏòÍ¼ºÍÎŞÏòÍ¼¾ù³ÉÁ¢£¡£¡£¡*/
+  /*æœ€å°ç”Ÿæˆæ ‘å’Œæœ€çŸ­è·¯å¾„ç®—æ³•ï¼Œå¯¹äºæœ‰å‘å›¾å’Œæ— å‘å›¾å‡æˆç«‹ï¼ï¼ï¼*/
 
-  // Èç¹ûºáÇĞ±ßÏàÍ¬£¬Ôò¿ÉÄÜ´æÔÚ¶à¸ö×îĞ¡Éú³ÉÊ÷£¿£¿£¿£¿
+  // å¦‚æœæ¨ªåˆ‡è¾¹ç›¸åŒï¼Œåˆ™å¯èƒ½å­˜åœ¨å¤šä¸ªæœ€å°ç”Ÿæˆæ ‘ï¼Ÿï¼Ÿï¼Ÿï¼Ÿ
 
-  // ×îĞ¡Éú³ÉÊ÷£ºv-1Ìõ±ßÁ¬½ÓËùÓĞ¶¥µã£¬²¢ÇÒÈ¨Öµ×îĞ¡.[Õë¶ÔÓÚ´øÈ¨µÄÎŞÏòÍ¼£¬Õë¶ÔÁ¬Í¨Í¼]
-  // Ä¬ÈÏËùÓĞÍ¼¶¼ÊÇÁ¬Í¨Í¼
-  // ÇĞ·Ö¶¨Àícut Property£ºÔÚ¸ø¶¨ÈÎÒâÇĞ·ÖÖĞ£¬ºáÇĞ±ßÖĞÈ¨Öµ×îĞ¡µÄ±ß±ØÈ»ÊôÓÚ×îĞ¡Éú³ÉÊ÷¡£¡£¡£°ÑÍ¼ÖĞµÄ½Úµã·ÖÎª2¸ö²¿·Ö£¬¾ÍÊÇÇĞ·Ö¡£
-  // Ê±¼ä¸´ÔÓ¶È O(ElogE)
+  // æœ€å°ç”Ÿæˆæ ‘ï¼šv-1æ¡è¾¹è¿æ¥æ‰€æœ‰é¡¶ç‚¹ï¼Œå¹¶ä¸”æƒå€¼æœ€å°.[é’ˆå¯¹äºå¸¦æƒçš„æ— å‘å›¾ï¼Œé’ˆå¯¹è¿é€šå›¾]
+  // é»˜è®¤æ‰€æœ‰å›¾éƒ½æ˜¯è¿é€šå›¾
+  // åˆ‡åˆ†å®šç†cut Propertyï¼šåœ¨ç»™å®šä»»æ„åˆ‡åˆ†ä¸­ï¼Œæ¨ªåˆ‡è¾¹ä¸­æƒå€¼æœ€å°çš„è¾¹å¿…ç„¶å±äºæœ€å°ç”Ÿæˆæ ‘ã€‚ã€‚ã€‚æŠŠå›¾ä¸­çš„èŠ‚ç‚¹åˆ†ä¸º2ä¸ªéƒ¨åˆ†ï¼Œå°±æ˜¯åˆ‡åˆ†ã€‚
+  // æ—¶é—´å¤æ‚åº¦ O(ElogE)
   lazyPrimMST () {
     let self = this
     let _pq = new MinHeap((left, right) => left.weight() < right.weight())
     let _marked = new Array(this.v()).fill(false)
-    // ·µ»Ø×îĞ¡Éú³ÉÊ÷
+    // è¿”å›æœ€å°ç”Ÿæˆæ ‘
     let mst = []
     let mstWeight = 0
 
     _visite(0)
     while (!_pq.isEmpty()){
       let e = _pq.extractMin()
-      // Èç¹ûÁ½¸ö½ÚµãÑÕÉ«ÏàÍ¬£¬Ôò´¦ÓÚÍ¬Ò»¸öÇĞ·ÖÖĞ
+      // å¦‚æœä¸¤ä¸ªèŠ‚ç‚¹é¢œè‰²ç›¸åŒï¼Œåˆ™å¤„äºåŒä¸€ä¸ªåˆ‡åˆ†ä¸­
       if (_marked[e.v()] === _marked[e.w()]){
         continue
       }
@@ -114,11 +114,11 @@ class DenseGraph extends Graph{
       return total + edge.weight()
     }, 0)
 
-    // Ë½ÓĞº¯Êı ·ÃÎÊÄ³¸ö½Úµã
+    // ç§æœ‰å‡½æ•° è®¿é—®æŸä¸ªèŠ‚ç‚¹
     function _visite (v) {
       _marked[v] = true
 
-      // ±éÀúËùÓĞµÄÏàÁÚÁÚ¶¥µã£¬Èç¹û¸Ã½ÚµãÎ´±»·ÃÎÊÔò½«¶ÔÓ¦µÄ±ß¼ÓÈë¶ÓÁĞ
+      // éå†æ‰€æœ‰çš„ç›¸é‚»é‚»é¡¶ç‚¹ï¼Œå¦‚æœè¯¥èŠ‚ç‚¹æœªè¢«è®¿é—®åˆ™å°†å¯¹åº”çš„è¾¹åŠ å…¥é˜Ÿåˆ—
       for(let e of self.adjIterator(v)) {
         if (!_marked[e.other(v)]) {
           _pq.insert(e)
@@ -126,19 +126,19 @@ class DenseGraph extends Graph{
       }
     }
   }
-  // Ê±¼ä¸´ÔÓ¶ÈO(ElogV)
+  // æ—¶é—´å¤æ‚åº¦O(ElogV)
   prim() {
     let self = this
     let _ipq = new IndexMinHeap()
     let _marked = new Array(this.v()).fill(false)
-    let _edgeTo = new Array(this.v()).fill(null)  // ´æ´¢Ã¿¸ö½Úµã×î¶ÌµÄºáÇĞ±ä
-    // ·µ»Ø×îĞ¡Éú³ÉÊ÷
+    let _edgeTo = new Array(this.v()).fill(null)  // å­˜å‚¨æ¯ä¸ªèŠ‚ç‚¹æœ€çŸ­çš„æ¨ªåˆ‡å˜
+    // è¿”å›æœ€å°ç”Ÿæˆæ ‘
     let mst = []
     let mstWeight = 0
 
     _visit(0)
     while (!_ipq.isEmpty()) {
-      // »ñÈ¡×î¶ÌÁÚ½Ó±ß
+      // è·å–æœ€çŸ­é‚»æ¥è¾¹
       let _v = _ipq.extractMinIndex()
       mst.push(_edgeTo[_v])
       _visit(_v)
@@ -169,8 +169,8 @@ class DenseGraph extends Graph{
       }
     }
   }
-  // Ê±¼ä¸´ÔÓ¶ÈO()
-  // ½èÖúunionFindÅĞ¶ÏÊÇ·ñÎª»·
+  // æ—¶é—´å¤æ‚åº¦O()
+  // å€ŸåŠ©unionFindåˆ¤æ–­æ˜¯å¦ä¸ºç¯
   kruskal() {
     let _pq = new MinHeap((left, right) => left.weight() < right.weight())
     let _uf = new UnionFind(this.v())
@@ -178,17 +178,17 @@ class DenseGraph extends Graph{
     let mst = []
     let mstWeight = 0
 
-    // ½«ËùÓĞ±ß·ÅÈë×îĞ¡¶Ñ£¬¹¹½¨×îĞ¡¶Ñ
+    // å°†æ‰€æœ‰è¾¹æ”¾å…¥æœ€å°å †ï¼Œæ„å»ºæœ€å°å †
     for(let  i = 0; i < this.v(); ++i) {
       for(let e of this.adjIterator(i)) {
-        // ±ÜÃâ·ÅÈëÖØ¸´±ß£¬ÎŞÏòÍ¼£¿
+        // é¿å…æ”¾å…¥é‡å¤è¾¹ï¼Œæ— å‘å›¾ï¼Ÿ
         if (e.v() < e.w()) {
           _pq.insert(e)
         }
       }
     }
 
-    // Ñ­»·È¡³ö×îĞ¡±ß£¬ÅĞ¶ÏÊÇ·ñ½á³É»·£¬Èç¹ûÃ»ÓĞ½á³É»·Ôò¼ÓÈëmst
+    // å¾ªç¯å–å‡ºæœ€å°è¾¹ï¼Œåˆ¤æ–­æ˜¯å¦ç»“æˆç¯ï¼Œå¦‚æœæ²¡æœ‰ç»“æˆç¯åˆ™åŠ å…¥mst
     while (!_pq.isEmpty()) {
       let _e = _pq.extractMin()
       if(_uf.isConnected(_e.v(), _e.w())) {
@@ -205,21 +205,21 @@ class DenseGraph extends Graph{
     console.log(mstWeight)
   }
 
-  // ×î¶ÌÂ·¾¶ÎÊÌâshortestPath£¬ËÉ³Ú²Ù×÷ÊÇÇó×î¶ÌÂ·¾¶µÄºËĞÄ
-  // µ¥Ô´×î¶ÌÂ·¾¶
-  // Â·¾¶¹æ»®¡¢¹¤×÷ÈÎÎñ¹æ»®
+  // æœ€çŸ­è·¯å¾„é—®é¢˜shortestPathï¼Œæ¾å¼›æ“ä½œæ˜¯æ±‚æœ€çŸ­è·¯å¾„çš„æ ¸å¿ƒ
+  // å•æºæœ€çŸ­è·¯å¾„
+  // è·¯å¾„è§„åˆ’ã€å·¥ä½œä»»åŠ¡è§„åˆ’
 
-  // Í¼ÖĞ²»ÄÜÓĞ¸ºÈ¨±ß£¬¸´ÔÓ¶È£ºElog(v)
-  // µ¥Ôª×î¶ÌÂ·¾¶
-  // Ã¿´Î´¦ÀíÉĞÎ´markedµÄ×î¶ÌÂ·¾¶µÄ½Úµã¡£Ôò×î¶ÌÂ·¾¢µÄ½ÚµãvÒ»¶¨Îªµ¥Ô´×î¶ÌÂ·¾¶£¬ÒòÎª¼´Ê¹ÓĞÆäËûÂ·¾¶¿ÉÒÔµ½´ïµãv£¬µ«ÊÇ±ØĞëÈÆµÀÆäËû½Úµã±ØÈ»Ôö¼ÓÂ·¾¶³¤¶È¡£
+  // å›¾ä¸­ä¸èƒ½æœ‰è´Ÿæƒè¾¹ï¼Œå¤æ‚åº¦ï¼šElog(v)
+  // å•å…ƒæœ€çŸ­è·¯å¾„
+  // æ¯æ¬¡å¤„ç†å°šæœªmarkedçš„æœ€çŸ­è·¯å¾„çš„èŠ‚ç‚¹ã€‚åˆ™æœ€çŸ­è·¯åŠ²çš„èŠ‚ç‚¹vä¸€å®šä¸ºå•æºæœ€çŸ­è·¯å¾„ï¼Œå› ä¸ºå³ä½¿æœ‰å…¶ä»–è·¯å¾„å¯ä»¥åˆ°è¾¾ç‚¹vï¼Œä½†æ˜¯å¿…é¡»ç»•é“å…¶ä»–èŠ‚ç‚¹å¿…ç„¶å¢åŠ è·¯å¾„é•¿åº¦ã€‚
   dijkstra(s) {
-    // ¶¥µãs
+    // é¡¶ç‚¹s
     let s = s
-    // ¶¥µãµ½ÆäËüµã×î¶ÌÂ·¾¶
+    // é¡¶ç‚¹åˆ°å…¶å®ƒç‚¹æœ€çŸ­è·¯å¾„
     let _distTo = new Array(this.v()).fill(0)
-    // ¶¥µãÊÇ·ñÒÑ¾­±»µü´úÆ÷±éÀú
+    // é¡¶ç‚¹æ˜¯å¦å·²ç»è¢«è¿­ä»£å™¨éå†
     let _marked = new Array(this.v()).fill(false)
-    // ¶¥µã×îĞ¡±ßÊÇ·ñ´æÔÚ---×î¶ÌÂ·¾¶ÊÇwho£¿¼´
+    // é¡¶ç‚¹æœ€å°è¾¹æ˜¯å¦å­˜åœ¨---æœ€çŸ­è·¯å¾„æ˜¯whoï¼Ÿå³
     let _from = new Array(this.v()).fill(null)
 
     let _ipq = new IndexMinHeap((left, right) => left < right)
@@ -231,7 +231,7 @@ class DenseGraph extends Graph{
       let _v = _ipq.extractMinIndex()
       _marked[_v] = true
 
-      // ËÉ³Ú²Ù×÷
+      // æ¾å¼›æ“ä½œ
       for(let _e of this.adjIterator(_v)) {
         let _w = _e.other(_v)
         if(!_marked[_w]) {
@@ -248,16 +248,16 @@ class DenseGraph extends Graph{
       }
     }
 
-    // ×î¶ÌÂ·¾¶£¬ÊÇ·ñÁ¬Í¨
+    // æœ€çŸ­è·¯å¾„ï¼Œæ˜¯å¦è¿é€š
   }
 
-  // ×î¶ÌÂ·¾¶´¦Àí¸ºÈ¨±ß
-  // ÓµÓĞ¸ºÈ¨»·µÄÍ¼£¬Ã»ÓĞ×î¶ÌÂ·¾¶¡£¡£¡£
-  // Ç°ÌáÌõ¼ş£¬Í¼ÖĞ²»ÄÜÓĞ¸ºÈ¨»·£¬¸ÃËã·¨¿ÉÒÔÅĞ¶ÏÍ¼ÖĞÊÇ·ñÓĞ¸ºÈ¨»·
-  // Ê±¼ä¸´ÔÓ¶ÈO(ev)
+  // æœ€çŸ­è·¯å¾„å¤„ç†è´Ÿæƒè¾¹
+  // æ‹¥æœ‰è´Ÿæƒç¯çš„å›¾ï¼Œæ²¡æœ‰æœ€çŸ­è·¯å¾„ã€‚ã€‚ã€‚
+  // å‰ææ¡ä»¶ï¼Œå›¾ä¸­ä¸èƒ½æœ‰è´Ÿæƒç¯ï¼Œè¯¥ç®—æ³•å¯ä»¥åˆ¤æ–­å›¾ä¸­æ˜¯å¦æœ‰è´Ÿæƒç¯
+  // æ—¶é—´å¤æ‚åº¦O(ev)
 
-  // ´ÓÒ»¸öµãµ½ÁíÒ»¸öµãµÄ×î¶ÌÂ·¾¶£¬×î¶à¾­¹ıËùÓĞµÄv¸ö¶¥µã£¬ÓĞv-1Ìõ±ß¡£·ñÔò´æÔÚ¸ºÈ¨»·
-  // ¶ÔËùÓĞµã½øĞĞv-1´ÎËÉ³Ú²Ù×÷
+  // ä»ä¸€ä¸ªç‚¹åˆ°å¦ä¸€ä¸ªç‚¹çš„æœ€çŸ­è·¯å¾„ï¼Œæœ€å¤šç»è¿‡æ‰€æœ‰çš„vä¸ªé¡¶ç‚¹ï¼Œæœ‰v-1æ¡è¾¹ã€‚å¦åˆ™å­˜åœ¨è´Ÿæƒç¯
+  // å¯¹æ‰€æœ‰ç‚¹è¿›è¡Œv-1æ¬¡æ¾å¼›æ“ä½œ
   bellmanFord(s) {
     let _distTo = new Array(this.v()).fill(0)
     let _from = new Array(this.v()).fill(null)
@@ -266,7 +266,7 @@ class DenseGraph extends Graph{
     for(let pass = 1; pass < this.v(); ++pass) {
       for(let i = 0; i < this.v(); ++i) {
         for(let e of this.adjIterator(i)) {
-          // ¶à´ÎËÉ³Ú²Ù×÷£¬e.w½ÚµãÊÇ·ñÓĞ×î¶Ì±ß£¬ÊÇ·ñÓĞËÉ³Ú×î¶Ì±ß
+          // å¤šæ¬¡æ¾å¼›æ“ä½œï¼Œe.wèŠ‚ç‚¹æ˜¯å¦æœ‰æœ€çŸ­è¾¹ï¼Œæ˜¯å¦æœ‰æ¾å¼›æœ€çŸ­è¾¹
           if(!_from[e.w()] || _distTo[e.v()] + e.weight() < _distTo[e.w()]) {
             _distTo[e.w()] = _distTo[e.v()] + e.weight()
             _from[e.w()] = e
@@ -275,15 +275,15 @@ class DenseGraph extends Graph{
       }
     }
 
-    // ÔÚ½øĞĞÒ»´ÎËÉ³Ú²Ù×÷£¬Èç¹û»¹¿ÉÒÔËÉ³ÚÔò°üº¬¸ºÈ¨»·¡£
+    // åœ¨è¿›è¡Œä¸€æ¬¡æ¾å¼›æ“ä½œï¼Œå¦‚æœè¿˜å¯ä»¥æ¾å¼›åˆ™åŒ…å«è´Ÿæƒç¯ã€‚
     _hasNegativeCycle = _checkhasNegativeCycle()
 
-    // ¼ì²éÊÇ·ñ°üº¬¸ºÈ¨»·
+    // æ£€æŸ¥æ˜¯å¦åŒ…å«è´Ÿæƒç¯
     function _checkhasNegativeCycle () {
       for(let pass = 1; pass < this.v(); ++pass) {
         for(let i = 0; i < this.v(); ++i) {
           for(let e of this.adjIterator(i)) {
-            // ¶à´ÎËÉ³Ú²Ù×÷£¬e.w½ÚµãÊÇ·ñÓĞ×î¶Ì±ß£¬ÊÇ·ñÓĞËÉ³Ú×î¶Ì±ß
+            // å¤šæ¬¡æ¾å¼›æ“ä½œï¼Œe.wèŠ‚ç‚¹æ˜¯å¦æœ‰æœ€çŸ­è¾¹ï¼Œæ˜¯å¦æœ‰æ¾å¼›æœ€çŸ­è¾¹
             if(!_from[e.w()] || _distTo[e.v()] + e.weight() < _distTo[e.w()]) {
               return true
             }
@@ -296,19 +296,19 @@ class DenseGraph extends Graph{
 
   }
 
-  // ×î¶ÌÂ·¾¶µÄ²¹³ä£»1¡¢distTo[w] = ÕıÎŞÇî£»2¡¢queue-based bellman-fordÓÅ»¯Ëã·¨
-  // dijkstra ÎŞ¸ºÈ¨±ß£¬ÓĞÏòÎŞÏò¾ù¿É£¬O(ElogV)
-  // bellman-ford ÎŞ¸ºÈ¨»·£¬ÓĞÏòÍ¼£¬O(VE)
-  // ÀûÓÃÍØÆËÅÅĞò ÓĞÏòÎŞ»·Í¼DAG£¬ÓĞÏòÍ¼£¬O(V + E)
-  // ËùÓĞ¶Ô×î¶ÌÂ·¾¶Ëã·¨£¬Floyed£¬´¦ÀíÎŞ¸ºÈ¨»·µÄÍ¼£¬O(V^3)
-  // ×î³¤Â·¾¶Ëã·¨£¿£¿£¿
+  // æœ€çŸ­è·¯å¾„çš„è¡¥å……ï¼›1ã€distTo[w] = æ­£æ— ç©·ï¼›2ã€queue-based bellman-fordä¼˜åŒ–ç®—æ³•
+  // dijkstra æ— è´Ÿæƒè¾¹ï¼Œæœ‰å‘æ— å‘å‡å¯ï¼ŒO(ElogV)
+  // bellman-ford æ— è´Ÿæƒç¯ï¼Œæœ‰å‘å›¾ï¼ŒO(VE)
+  // åˆ©ç”¨æ‹“æ‰‘æ’åº æœ‰å‘æ— ç¯å›¾DAGï¼Œæœ‰å‘å›¾ï¼ŒO(V + E)
+  // æ‰€æœ‰å¯¹æœ€çŸ­è·¯å¾„ç®—æ³•ï¼ŒFloyedï¼Œå¤„ç†æ— è´Ÿæƒç¯çš„å›¾ï¼ŒO(V^3)
+  // æœ€é•¿è·¯å¾„ç®—æ³•ï¼Ÿï¼Ÿï¼Ÿ
 
 
 
 
 
-  // Ê±¼ä¸´ÔÓ¶È£º O(v)¡£±éÀúÁËËùÓĞ¶¥µã
-  // ·µ»ØÓĞĞ§µÄ±ß£¬EdgeÊµÀı
+  // æ—¶é—´å¤æ‚åº¦ï¼š O(v)ã€‚éå†äº†æ‰€æœ‰é¡¶ç‚¹
+  // è¿”å›æœ‰æ•ˆçš„è¾¹ï¼ŒEdgeå®ä¾‹
   *adjIterator(v) {
     let _flagV = this._graph[v]
     for(let i = 0, len = _flagV.length; i < len; ++i){
@@ -319,7 +319,7 @@ class DenseGraph extends Graph{
   }
 }
 
-// ÁÚ½Ó±í
+// é‚»æ¥è¡¨
 class SparseGraph extends Graph{
   constructor(n, directed = false) {
     super()
@@ -343,25 +343,25 @@ class SparseGraph extends Graph{
       console.log(_printStr)
     })
   }
-  // Îª±ÜÃâÌí¼Ó±ßÊ±¼ä¸´ÔÓ¶È¹ı¸ß£¬ÔÚ´Ë²Ù×÷ÖĞÔÊĞíÆ½ĞĞ±ä£¬²»½øĞĞhasEdgeÅĞ¶Ï£»
-  // Í¨³£´¦ÀíÆ½ĞĞ±ß²Ù×÷£¬ÔÚËùÓĞ±ßÌí¼ÓÍê³Éºó£¬Í³Ò»´¦ÀíÆ½ĞĞ±ß
+  // ä¸ºé¿å…æ·»åŠ è¾¹æ—¶é—´å¤æ‚åº¦è¿‡é«˜ï¼Œåœ¨æ­¤æ“ä½œä¸­å…è®¸å¹³è¡Œå˜ï¼Œä¸è¿›è¡ŒhasEdgeåˆ¤æ–­ï¼›
+  // é€šå¸¸å¤„ç†å¹³è¡Œè¾¹æ“ä½œï¼Œåœ¨æ‰€æœ‰è¾¹æ·»åŠ å®Œæˆåï¼Œç»Ÿä¸€å¤„ç†å¹³è¡Œè¾¹
   addEdge(v, w, weight) {
     this._graph[v].push(new Edge(v, w, weight))
 
-    // ±ÜÃâ×Ô»·±ß
+    // é¿å…è‡ªç¯è¾¹
     if (v !== w && !this._directed) {
       this._graph[w].push(new Edge(w, v, weight))
     }
     this._m += 1
   }
-  // Ê±¼ä¸´ÔÓ¶ÈO(n)
+  // æ—¶é—´å¤æ‚åº¦O(n)
   hasEdge (v, w) {
     return !this._graph[v].every(e => {
       return e.other() !== v
     })
   }
-  // Ê±¼ä¸´ÔÓ¶È£ºO(E)£¬±éÀú¸Ã½ÚµãËùÓĞµÄ±ß
-  // ·µ»ØÄ³¸ö½ÚµãµÄËùÓĞ±ß
+  // æ—¶é—´å¤æ‚åº¦ï¼šO(E)ï¼Œéå†è¯¥èŠ‚ç‚¹æ‰€æœ‰çš„è¾¹
+  // è¿”å›æŸä¸ªèŠ‚ç‚¹çš„æ‰€æœ‰è¾¹
   *adjIterator(v) {
     let _retV = this._graph[v]
     for(let i = 0, len = _retV.length; i < len; ++i){

@@ -1,20 +1,20 @@
 /**
  * Created by xiaer on 2018/9/27.
  */
-// ¶ÑÊı¾İ½á¹¹ÊÊºÏÎ¬»¤¶¯Ì¬Êı¾İ£¬ºÜÉÙÖ±½ÓÓÃÓÚÅÅĞò
-// ¶ÑÊı¾İ½á¹¹£¬ÓëÓÅÏÈ¶ÓÁĞµÄÓ¦ÓÃ
-// ¶¯Ì¬cpuÈÎÎñ´¦Àí£¬´Ón¸öÔªËØÖĞÑ¡³öm¸öÔªËØ£¨ÓÅÏÈ¶ÓÁĞÊ±¼ä¸´ÔÓ¶Ènlogm£©
+// å †æ•°æ®ç»“æ„é€‚åˆç»´æŠ¤åŠ¨æ€æ•°æ®ï¼Œå¾ˆå°‘ç›´æ¥ç”¨äºæ’åº
+// å †æ•°æ®ç»“æ„ï¼Œä¸ä¼˜å…ˆé˜Ÿåˆ—çš„åº”ç”¨
+// åŠ¨æ€cpuä»»åŠ¡å¤„ç†ï¼Œä»nä¸ªå…ƒç´ ä¸­é€‰å‡ºmä¸ªå…ƒç´ ï¼ˆä¼˜å…ˆé˜Ÿåˆ—æ—¶é—´å¤æ‚åº¦nlogmï¼‰
 
-// ÓÅÏÈ¶ÓÁĞÊµÏÖ·½Ê½£º
-// ÆÕÍ¨Êı×é£ºÈë¶ÓO(1)£¬³ö¶ÓO(n);
-// Ë³ĞòÊı×é£ºÈë¶ÓO(n)£¬³ö¶ÓO(1);
-// ¶Ñ£º Èë¶ÓO(lgn)£¬³ö¶ÓO(lgn)
+// ä¼˜å…ˆé˜Ÿåˆ—å®ç°æ–¹å¼ï¼š
+// æ™®é€šæ•°ç»„ï¼šå…¥é˜ŸO(1)ï¼Œå‡ºé˜ŸO(n);
+// é¡ºåºæ•°ç»„ï¼šå…¥é˜ŸO(n)ï¼Œå‡ºé˜ŸO(1);
+// å †ï¼š å…¥é˜ŸO(lgn)ï¼Œå‡ºé˜ŸO(lgn)
 
-// ¶ş²æ¶Ñ£º1¡¢Ã¿¸ö½Úµã×î¶à2¸ö½Úµã£»2¡¢ÍêÈ«¶ş²æÊ÷£»3¡¢×Ó½Úµã²»´óÓÚ¸¸½Úµã£¨×î´ó¶Ñ£©
-// Ê¹ÓÃÊı×é´æ´¢¶ş²æ¶Ñ£¬ÒÀÕÕ²ãĞò¡¢×Ô×óÏòÓÒ£¨×ó½Úµã£º¸¸½ÚµãĞòºÅ * 2£»ÓÒ½Úµã£º¸¸½ÚµãĞòºÅ * 2 + 1£©
+// äºŒå‰å †ï¼š1ã€æ¯ä¸ªèŠ‚ç‚¹æœ€å¤š2ä¸ªèŠ‚ç‚¹ï¼›2ã€å®Œå…¨äºŒå‰æ ‘ï¼›3ã€å­èŠ‚ç‚¹ä¸å¤§äºçˆ¶èŠ‚ç‚¹ï¼ˆæœ€å¤§å †ï¼‰
+// ä½¿ç”¨æ•°ç»„å­˜å‚¨äºŒå‰å †ï¼Œä¾ç…§å±‚åºã€è‡ªå·¦å‘å³ï¼ˆå·¦èŠ‚ç‚¹ï¼šçˆ¶èŠ‚ç‚¹åºå· * 2ï¼›å³èŠ‚ç‚¹ï¼šçˆ¶èŠ‚ç‚¹åºå· * 2 + 1ï¼‰
 let  {swap} = require('../util/sortHelper')
 
-// ¶¨ÒåÒ»¸ö×î´ó¶Ñ½á¹¹
+// å®šä¹‰ä¸€ä¸ªæœ€å¤§å †ç»“æ„
 class MaxHeap {
   constructor() {
     this._data = []
@@ -24,7 +24,7 @@ class MaxHeap {
     this._data = [, ...array]
     this._count = array.length
 
-    // ¼ÆËãµÚÒ»¸ö²»Îª×Ó½ÚµãµÄ½ÚµãĞòºÅ~~~£¡£¡£¡µİ¹é½Úµã£¬µ÷ÓÃshiftDown£¬¹¹Ôì×î´ó¶Ñ
+    // è®¡ç®—ç¬¬ä¸€ä¸ªä¸ä¸ºå­èŠ‚ç‚¹çš„èŠ‚ç‚¹åºå·~~~ï¼ï¼ï¼é€’å½’èŠ‚ç‚¹ï¼Œè°ƒç”¨shiftDownï¼Œæ„é€ æœ€å¤§å †
     for(let i = Math.floor(this._count / 2); i >= 1; i--) {
       this._shiftDown(i)
     }
@@ -44,14 +44,14 @@ class MaxHeap {
     return _ret
   }
   print () {
-    // ×Ôµ×ÏòÉÏ¹¹½¨´òÓ¡ÁĞ±í~~~
-    // n²ã×î¶à½ÚµãÊıÁ¿ 2^n - 1
+    // è‡ªåº•å‘ä¸Šæ„å»ºæ‰“å°åˆ—è¡¨~~~
+    // nå±‚æœ€å¤šèŠ‚ç‚¹æ•°é‡ 2^n - 1
     let _depth = Math.floor(Math.log2(this._count)) + 1
     let _padLeft = []
 
     let _outStr = []
 
-    // ¹¹½¨×îµ×²ã´òÓ¡Êı¾İ
+    // æ„å»ºæœ€åº•å±‚æ‰“å°æ•°æ®
     let _start = Math.pow(2, _depth - 1)
     let _end = Math.pow(2, _depth) - 1
     let _gap = 0
@@ -64,7 +64,7 @@ class MaxHeap {
     }
     _outStr.push(_str)
 
-    // ×Ôµ×ÏòÉÏ¹¹½¨ËùÓĞµÄ´òÓ¡Êı¾İ~
+    // è‡ªåº•å‘ä¸Šæ„å»ºæ‰€æœ‰çš„æ‰“å°æ•°æ®~
     for(let i = _depth - 1; i > 0; --i) {
       _str = ''
       let _start = Math.pow(2, i - 1)
@@ -76,12 +76,12 @@ class MaxHeap {
       _outStr.push(_str)
     }
 
-    // ´òÓ¡×î´ó¶Ñ
+    // æ‰“å°æœ€å¤§å †
     for(let i = _outStr.length - 1; i>= 0; --i) {
       console.log(_outStr[i])
     }
 
-    // ¹¹½¨Ã¿Ò»ĞĞµÄ×Ö·û´®
+    // æ„å»ºæ¯ä¸€è¡Œçš„å­—ç¬¦ä¸²
     function _insert(str, gap, number = 0) {
       let _len = str.length
       if (_len < gap * 3 + 2) {
@@ -101,7 +101,7 @@ class MaxHeap {
     return this._count === 0
   }
   _shiftUp (k) {
-    // ĞÂ¼ÓÈëÔªËØÓë¸¸ÔªËØ½øĞĞ±È½Ï£¬µİ¹é½øĞĞ½»»»
+    // æ–°åŠ å…¥å…ƒç´ ä¸çˆ¶å…ƒç´ è¿›è¡Œæ¯”è¾ƒï¼Œé€’å½’è¿›è¡Œäº¤æ¢
     let tmpK = Math.floor(k / 2)
     while ( k > 1 && this._data[tmpK] < this._data[k]) {
       swap(this._data, tmpK, k)
@@ -110,8 +110,8 @@ class MaxHeap {
     }
   }
   _shiftDown (k) {
-    // ÏòÏÂÒÆ¶¯ÔªËØ£¬µİ¹éÖ±ÖÁÂú×ã×î´óÌõ¼ş
-    // todo£º¿ÉÒÔ³¢ÊÔÍ¨¹ı²åÈëÅÅĞòÓÅ»¯Õâ¸ö²½Öè
+    // å‘ä¸‹ç§»åŠ¨å…ƒç´ ï¼Œé€’å½’ç›´è‡³æ»¡è¶³æœ€å¤§æ¡ä»¶
+    // todoï¼šå¯ä»¥å°è¯•é€šè¿‡æ’å…¥æ’åºä¼˜åŒ–è¿™ä¸ªæ­¥éª¤
     while (2 * k <= this._count) {
       let j = 2 * k
       if ( j + 1 <= this._count && this._data[j + 1] > this._data[j]) {
@@ -127,10 +127,10 @@ class MaxHeap {
   }
 }
 
-// ¶¨ÒåÒ»¸ö×îĞ¡¶Ñ½á¹¹
+// å®šä¹‰ä¸€ä¸ªæœ€å°å †ç»“æ„
 class MinHeap {
   constructor () {
-    // ´Ó[1,¿ªÊ¼´æ´¢Êı¾İ
+    // ä»[1,å¼€å§‹å­˜å‚¨æ•°æ®
     this._data =[]
     this._count = 0
   }
@@ -160,7 +160,7 @@ class MinHeap {
     }
   }
   _shiftDown(k) {
-    // µ±ÓĞ×ó×Ó½ÚµãÊ±£¬²Å¼ÌĞø½øĞĞ
+    // å½“æœ‰å·¦å­èŠ‚ç‚¹æ—¶ï¼Œæ‰ç»§ç»­è¿›è¡Œ
     while ( 2 * k <= this._count) {
       let  j = 2 * k
 
@@ -176,15 +176,15 @@ class MinHeap {
   }
 }
 
-// fixme: indexºÍreverseË÷Òı£¬¼õÉÙËã·¨¸´ÔÓ¶È~~~index¼õÉÙÁË½»»»£¬reverse¼õÉÙÁËĞŞ¸Ä~~~
-// Ë÷Òı¶ÑÔÚ½øĞĞÅÅĞòÊ±£¬²»»áĞŞ¸ÄÊı×édata¡£
+// fixme: indexå’Œreverseç´¢å¼•ï¼Œå‡å°‘ç®—æ³•å¤æ‚åº¦~~~indexå‡å°‘äº†äº¤æ¢ï¼Œreverseå‡å°‘äº†ä¿®æ”¹~~~
+// ç´¢å¼•å †åœ¨è¿›è¡Œæ’åºæ—¶ï¼Œä¸ä¼šä¿®æ”¹æ•°ç»„dataã€‚
 class IndexMaxHeap {
   constructor () {
-    // data´¢´æÊı¾İ£¬index´¢´æË÷Òı£¬countÎª×ÜÊı
+    // dataå‚¨å­˜æ•°æ®ï¼Œindexå‚¨å­˜ç´¢å¼•ï¼Œcountä¸ºæ€»æ•°
     this._data = []
     this._index = []
     this._count = 0
-    // ´¢´æthis._indexµÄË÷Òı£¿£¿£¿£¿
+    // å‚¨å­˜this._indexçš„ç´¢å¼•ï¼Ÿï¼Ÿï¼Ÿï¼Ÿ
     this._reverse = []
   }
   insert (value) {
@@ -209,11 +209,11 @@ class IndexMaxHeap {
   getItem (index) {
     return this._data[index]
   }
-  // n + lgn.ËùÒÔÊ±¼ä¸´ÔÓ¶È£º O(n)
+  // n + lgn.æ‰€ä»¥æ—¶é—´å¤æ‚åº¦ï¼š O(n)
   change (index, value) {
     this._data[index] = value
 
-    // ÕÒµ½ _index[k] === index
+    // æ‰¾åˆ° _index[k] === index
     let _k = this._index.findIndex(t => t === index)
     this._shiftUp(_k)
     this._shiftDown(_k)
@@ -221,7 +221,7 @@ class IndexMaxHeap {
   changeReverse (index, value) {
     this._data[index] = value
 
-    // Ê¹ÓÃreverse¼õÉÙÊÂ¼ş¸´ÔÓ¶È£¬ÏÖÔÚÎªO(1)
+    // ä½¿ç”¨reverseå‡å°‘äº‹ä»¶å¤æ‚åº¦ï¼Œç°åœ¨ä¸ºO(1)
     let _k = this._reverse[index]
     this._shiftUp(_k)
     this._shiftDown(_k)
@@ -229,11 +229,11 @@ class IndexMaxHeap {
   isEmpty () {
     return this._count === 0
   }
-  // shiftUpºÍshiftDown¶ÔË÷Òıindex½øĞĞ½»»»²Ù×÷£¬±ÜÃâÖ±½Ó´¦Àí
+  // shiftUpå’ŒshiftDownå¯¹ç´¢å¼•indexè¿›è¡Œäº¤æ¢æ“ä½œï¼Œé¿å…ç›´æ¥å¤„ç†
   _shiftUp (k) {
     let _tmpK = Math.floor( k / 2)
     while (k > 1 && this._data[this._index[k]] > this._data[this._index[_tmpK]]) {
-      // ½»»»Ë÷Òı
+      // äº¤æ¢ç´¢å¼•
       swap(this._index, k, _tmpK)
       this._reverse[this._index[k]] = k
       this._reverse[this._index[_tmpK]] = _tmpK
@@ -259,10 +259,10 @@ class IndexMaxHeap {
   }
 }
 
-// ×îĞ¡Ë÷Òı¶Ñ
+// æœ€å°ç´¢å¼•å †
 class IndexMinHeap {
   constructor(compare) {
-    // Êı×é´æ´¢Êı¾İ½á¹¹
+    // æ•°ç»„å­˜å‚¨æ•°æ®ç»“æ„
     this._data = []
     this._index = []    // index[x] = i
     this._reverse = []  // reverse[i] = x   reverse[index[x]] = x
@@ -272,7 +272,7 @@ class IndexMinHeap {
   insert(index, value) {
     ++index
 
-    // data´æ´¢Êı¾İ£¬index´æ´¢dataµÄË÷Òı
+    // dataå­˜å‚¨æ•°æ®ï¼Œindexå­˜å‚¨dataçš„ç´¢å¼•
     this._data[index] = value
     this._index[++this._count] = index
     this._reverse[index] = this._count
@@ -313,7 +313,7 @@ class IndexMinHeap {
   isEmpty() {
     return this._count === 0
   }
-  // ²Ù×÷Ë÷Òı¶Ñ£¬Êµ¼Ê±È½ÏdataµÄ´óĞ¡
+  // æ“ä½œç´¢å¼•å †ï¼Œå®é™…æ¯”è¾ƒdataçš„å¤§å°
   _shiftUp(k) {
     while (k > 1 && this._leftMinRight(this._data[this._index[k]], this._data[this._index[Math.floor(k / 2)]])) {
       swap(this._index, k, Math.floor(k / 2))
@@ -340,7 +340,7 @@ class IndexMinHeap {
   }
 }
 
-// Ëã·¨¸´ÔÓ¶È£ºnlogn
+// ç®—æ³•å¤æ‚åº¦ï¼šnlogn
 function heapSort1(array) {
   let _heap = new MaxHeap()
   for(let i = 0, len = array.length; i < len; ++ i) {
@@ -352,10 +352,10 @@ function heapSort1(array) {
   }
 }
 
-// Ëã·¨¸´ÔÓ¶È: O(n)
+// ç®—æ³•å¤æ‚åº¦: O(n)
 function heapSort2(array) {
   let _heap = new MaxHeap()
-  // Ö±½Ó´¦ÀíÊı¾İ£¬½èÖúShiftDown¹¹½¨¶ÑÊı×é
+  // ç›´æ¥å¤„ç†æ•°æ®ï¼Œå€ŸåŠ©ShiftDownæ„å»ºå †æ•°ç»„
   _heap.createHeap(array)
 
   for(let i = array.length - 1; i >= 0; --i) {
@@ -363,9 +363,13 @@ function heapSort2(array) {
   }
 }
 
-// ÉÏÃæ2¸ö¶ÑÅÅĞò£¬¿Õ¼ä¸´ÔÓ¶ÈÎªO(n)¡£¿ÉÒÔÔÚÔ­µØ¶ÑÅÅĞò£¬½øĞĞÅÅĞò£¬¿Õ¼ä¸´ÔÓ¶È½«ÎªO(1)
+// ä¸Šé¢2ä¸ªå †æ’åºï¼Œç©ºé—´å¤æ‚åº¦ä¸ºO(n)ã€‚
+// å¯ä»¥åœ¨åŸåœ°å †æ’åºï¼Œè¿›è¡Œæ’åºï¼Œç©ºé—´å¤æ‚åº¦å°†ä¸ºO(1)
+// åŸåœ°heapfiyï¼Œä¸æ–­å°†æå€¼swapåˆ°æ•°ç»„æœ€åé¢ã€‚
 // parent(i) = (i-1)/2  leftChild(i) = 2*i + 1, rightChild = 2*i + 2
 function heapSort3(array) {
+  // å¯»æ‰¾æœ€åéå­èŠ‚ç‚¹ (count - 1) / 2
+  // å€ŸåŠ©æ­¤æ­¥æ“ä½œï¼Œå°†æ•°ç»„è½¬ä¸ºæœ€å¤§å †ã€‚
   for(let i = Math.floor((array.length - 1) / 2); i >= 0; i--) {
     _shiftDown(array, array.length-1, i)
   }
@@ -376,8 +380,8 @@ function heapSort3(array) {
 
 
   function _shiftDown (array, count, k) {
-    // ÏòÏÂÒÆ¶¯ÔªËØ£¬µİ¹éÖ±ÖÁÂú×ã×î´óÌõ¼ş
-    // todo£º¿ÉÒÔ³¢ÊÔÍ¨¹ı²åÈëÅÅĞòÓÅ»¯Õâ¸ö²½Öè
+    // å‘ä¸‹ç§»åŠ¨å…ƒç´ ï¼Œé€’å½’ç›´è‡³æ»¡è¶³æœ€å¤§æ¡ä»¶
+    // todoï¼šå¯ä»¥å°è¯•é€šè¿‡æ’å…¥æ’åºä¼˜åŒ–è¿™ä¸ªæ­¥éª¤
     while (2 * k + 1 <= count) {
       let j = 2 * k + 1
       if ( j + 1 <= count && array[j + 1] > array[j]) {

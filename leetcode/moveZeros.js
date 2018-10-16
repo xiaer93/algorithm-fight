@@ -3,7 +3,7 @@
  */
 let {swap} = require('../util/sortHelper')
 
-// Ê±¼ä¸´ÔÓ¶È£ºO(n)£¬ ¿Õ¼ä¸´ÔÓ¶È£ºO(n)
+// æ—¶é—´å¤æ‚åº¦ï¼šO(n)ï¼Œ ç©ºé—´å¤æ‚åº¦ï¼šO(n)
 function moveZero(array) {
   let noneZeroArray = []
   for(let i = 0, len = array.length; i < len; ++i) {
@@ -21,8 +21,8 @@ function moveZero(array) {
   return array
 }
 
-// ÓÅ»¯°æ±¾£¬[0---k)¾ùÎª·Ç0ÔªËØ
-// Ê±¼ä¸´ÔÓ¶È£ºO(n)£¬¿Õ¼ä¸´ÔÓ¶È£ºO(1)
+// ä¼˜åŒ–ç‰ˆæœ¬ï¼Œ[0---k)å‡ä¸ºé0å…ƒç´ 
+// æ—¶é—´å¤æ‚åº¦ï¼šO(n)ï¼Œç©ºé—´å¤æ‚åº¦ï¼šO(1)
 function moveZero2(array) {
   let k = 0
   for(let i = 0, len = array.length; i < len; ++i) {
@@ -37,7 +37,7 @@ function moveZero2(array) {
   return array
 }
 
-// ÓÅ»¯°æ±¾£¬¼õÉÙÒ»´ÎforÑ­»·
+// ä¼˜åŒ–ç‰ˆæœ¬ï¼Œå‡å°‘ä¸€æ¬¡forå¾ªç¯
 function moveZero3(array) {
   let k = 0
   for(let i = 0, len = array.length; i < len; ++i) {

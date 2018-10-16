@@ -3,10 +3,10 @@
  */
 let {swap} = require('../util/sortHelper')
 
-// ×ÔinsertSort²åÈëÅÅĞòÑÜÉú¶øÀ´µÄ¸ß¼¶Ëã·¨~~~ ¸´ÔÓ¶È£º£º£ºn ^ 2/3
+// è‡ªinsertSortæ’å…¥æ’åºè¡ç”Ÿè€Œæ¥çš„é«˜çº§ç®—æ³•~~~ å¤æ‚åº¦ï¼šï¼šï¼šn ^ 2/3
 
 function shellSort (array) {
-  // Éú³ÉÎÈ¶¨¼ä¸ô h = 3*h + 1
+  // ç”Ÿæˆç¨³å®šé—´éš” h = 3*h + 1
   let len = array.length
   let hList = [1]
   let tmpH = 1
@@ -15,12 +15,12 @@ function shellSort (array) {
     hList.push(tmpH)
   }
 
-  // »ùÓÚ²åÈëÅÅĞòµÄ¸ß¼¶ÅÅĞòËã·¨
+  // åŸºäºæ’å…¥æ’åºçš„é«˜çº§æ’åºç®—æ³•
   while (hList.length !== 0) {
     tmpH = hList.pop()
-    // ¹¹½¨Ğ¡µÄ·Ö×éÊı×é
+    // æ„å»ºå°çš„åˆ†ç»„æ•°ç»„
     for(let k = 0; k < tmpH; ++k) {
-      // ÊÊÓÃ»ù±¾ÅÅĞòËã·¨£º£º£º²åÈëÅÅĞò~~~
+      // é€‚ç”¨åŸºæœ¬æ’åºç®—æ³•ï¼šï¼šï¼šæ’å…¥æ’åº~~~
       for(let i = 0; i < len; i = i + tmpH) {
         let tmpNumber = array[i]
         let j = i

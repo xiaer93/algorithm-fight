@@ -1,11 +1,11 @@
 /**
  * Created by xiaer on 2018/9/25.
  */
-// ÀàËÆÌâÄ¿£º167,125,344,345,11
-// ¶Ô×²Ö¸Õë£º2¸öÖ¸ÕëÏòÄÚ±Æ½ü£¬Ö¸ÕëÒÆ¶¯¹æÔòÇå³şÃ÷È·~
+// ç±»ä¼¼é¢˜ç›®ï¼š167,125,344,345,11
+// å¯¹æ’æŒ‡é’ˆï¼š2ä¸ªæŒ‡é’ˆå‘å†…é€¼è¿‘ï¼ŒæŒ‡é’ˆç§»åŠ¨è§„åˆ™æ¸…æ¥šæ˜ç¡®~
 let {binarySearch} = require('../search/binarySearch')
 
-// ±©Á¦½â·¨: Ê±¼ä¸´ÔÓ¶ÈO(n^2)
+// æš´åŠ›è§£æ³•: æ—¶é—´å¤æ‚åº¦O(n^2)
 function twoSum (array, target) {
   let ret = [-1, -1]
   for(let i = 0, len = array.length; i < len; ++i) {
@@ -20,7 +20,7 @@ function twoSum (array, target) {
   return ret
 }
 
-// nlg(n), ¶ş·ÖËÑË÷
+// nlg(n), äºŒåˆ†æœç´¢
 function twoSum2 (array, target) {
   let ret = [-1, -1]
   for(let i = 0, len = array.length; i < len; ++i) {
@@ -35,7 +35,7 @@ function twoSum2 (array, target) {
   return ret
 }
 
-// ¶Ô×²Ö¸Õë???£¬O(n)
+// å¯¹æ’æŒ‡é’ˆ???ï¼ŒO(n)
 function twoSum3(array, target) {
   let l = 0,
     r = array.length - 1

@@ -1,8 +1,8 @@
 /**
  * Created by xiaer on 2018/9/26.
  */
-// ԭʼ����������ڽ����������飬���ܷǳ���~~~
-// ���ɵݹ������м�ֵ���ֲ��ɿ�����������˻���O(n^2)
+// 原始快速排序对于近乎有序数组，性能非常差~~~
+// 生成递归树，中间值划分不可靠，最差的情况退化到O(n^2)
 let {swap, insertSort} = require('../util/sortHelper')
 
 function quickSortBT(array) {
@@ -20,7 +20,7 @@ function _quickSortBT(array, left, right) {
 }
 
 function _partition(array, left, right) {
-  // todo�����ȡһ���м�ֵ�����������������˻���O(n^2)��ʱ�临�Ӷ�~~~
+  // todo：随机取一个中间值，避免有序数组中退化到O(n^2)的时间复杂度~~~
   swap(array, left, Math.floor(Math.random() * (right - left)) + left)
   let j = left,
       jMid = array[left]

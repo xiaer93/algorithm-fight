@@ -3,9 +3,9 @@
  */
 let {swap} = require('../util/sortHelper')
 
-// fixme: Ã°ÅİÅÅĞòÊÊÓÃÊ²Ã´Çé¿ö£¿
+// fixme: å†’æ³¡æ’åºé€‚ç”¨ä»€ä¹ˆæƒ…å†µï¼Ÿ
 
-// Ã°ÅİÅÅĞòËã·¨£¬ÓÅ»¯£¬ĞÔÄÜ£¿
+// å†’æ³¡æ’åºç®—æ³•ï¼Œä¼˜åŒ–ï¼Œæ€§èƒ½ï¼Ÿ
 function bubbleSort (array) {
   for(let i = 0, len = array.length; i < len; ++i) {
     for(let j = len; j > i; --j) {
@@ -17,7 +17,7 @@ function bubbleSort (array) {
   return array
 }
 
-// Ã°ÅİËã·¨ÓÅ»¯¡£µ±ÊıÁĞ±È½ÏÓĞĞòÊ±£¬ĞÔÄÜ½ÏºÃ£¿
+// å†’æ³¡ç®—æ³•ä¼˜åŒ–ã€‚å½“æ•°åˆ—æ¯”è¾ƒæœ‰åºæ—¶ï¼Œæ€§èƒ½è¾ƒå¥½ï¼Ÿ
 function bubbleSort2 (array) {
   let isSort = false
   for(let i = 0, len = array.length; i < len && !isSort; ++i) {

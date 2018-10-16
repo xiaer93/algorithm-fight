@@ -3,7 +3,7 @@
  */
 let {swap} = require('../util/sortHelper')
 
-// ¸ß¼¶ÅÅÐòËã·¨¶¼¿ÉÒÔ²ÉÓÃ²åÈëÅÅÐò½øÐÐÓÅ»¯
+// é«˜çº§æŽ’åºç®—æ³•éƒ½å¯ä»¥é‡‡ç”¨æ’å…¥æŽ’åºè¿›è¡Œä¼˜åŒ–
 
 function quickSort(array) {
   _quickSort(array, 0, array.length - 1)
@@ -11,17 +11,17 @@ function quickSort(array) {
 
 function _quickSort(array, left, right) {
   if (left >= right) {
-    // right - left <= 15,¿ÉÒÔ½èÖú²åÈëÅÅÐòÓÅ»¯Ëã·¨~~~
+    // right - left <= 15,å¯ä»¥å€ŸåŠ©æ’å…¥æŽ’åºä¼˜åŒ–ç®—æ³•~~~
     return
   }
 
-  // ·µ»ØË÷Òýp£¬Ê¹µÃarr[left, p - 1] Ð¡ÓÚarr[p], arr[p + 1, right] ´óÓÚarr[p]
+  // è¿”å›žç´¢å¼•pï¼Œä½¿å¾—arr[left, p - 1] å°äºŽarr[p], arr[p + 1, right] å¤§äºŽarr[p]
   let p = _partition(array, left, right)
   _quickSort(array, left, p - 1)
   _quickSort(array, p + 1, right)
 }
 
-// partition Éè¶¨·Ö½çµã£¬×óÓÒ·Ö½ç~
+// partition è®¾å®šåˆ†ç•Œç‚¹ï¼Œå·¦å³åˆ†ç•Œ~
 // arr[l + 1, j] < e && arr[j + 1, i - 1] > e
 function _partition(array, left, right) {
   let j = left
@@ -32,7 +32,7 @@ function _partition(array, left, right) {
       swap(array, ++j, i)
     }
   }
-  // ½«ÖÐ¼äÊý·ÅÔÚjMid´¦£¬²¢·µ»Ø~~
+  // å°†ä¸­é—´æ•°æ”¾åœ¨jMidå¤„ï¼Œå¹¶è¿”å›ž~~
   swap(array, left, j)
   return j
 }
