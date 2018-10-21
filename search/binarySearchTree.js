@@ -1,6 +1,8 @@
 /**
  * Created by xiaer on 2018/9/29.
  */
+// 树这种数据结构，性能高效。常见树：二分搜索树、平衡二叉树（avl、红黑树）、堆、并查集、线段树（trie、字典树）
+
 // 二叉树能够高效解决一类问题，堆是满二叉树，二叉搜索树也是二叉树
 
 // 查找问题是计算机中非常重要的基础问题
@@ -10,185 +12,191 @@
 // 顺序数组：查找严肃logn  插入O(n) 删除O(n)
 // 二分搜索树 logn logn logn。查找、删除、插入数据非常高效；可以方便回答数据的关系，如min/max/floor/ceil/rank/select
 
+// 动态数据结构
+// 二叉树的应用？？？？？
 // 二叉树性质，1、每个节点大于左节点，小于右节点；2、每个节点都是二叉树
-  // fixme: 如果等于节点呢？如何处理？=====>替换数据
+// fixme: 如果等于节点呢？如何处理？=====>替换数据
+// 二分搜索树，具有二叉树性质，同时  左子节点 < 节点值 < 右子节点
 class Node {
-    constructor (key, value) {
-      this.key = key
-      this.value = value
-      this.left = this.right = null
-    }
+  constructor (key, value) {
+    this.key = key;
+    this.value = value;
+    this.left = null;
+    this.right = null;
+  }
 }
 
 class BST {
-  constructor() {
-    this._root = null
-    this._count = 0
+  constructor () {
+    this._root = null;
+    this._count = 0;
   }
   insert (key, value) {
-    this._root = this._insert(this._root, key, value)
+    this._root = this._insert(this._root, key, value);
   }
   search (key) {
-    return this._search(this._root, key)
+    return this._search(this._root, key);
   }
   contain (key) {
-    return this._contain(this._root, key)
+    return this._contain(this._root, key);
   }
   // 深度优先遍历
+  // 能够将遍历结果画出来
   // 前序遍历：先访问当前节点，再访问左右子树
   // 中序遍历：先访问左子树，再访问自身，最后访问右子树
   // 后序遍历：先递归访问左右子树，再访问自身
+
+  // 二分搜索树的非遍历实现非常复杂，中序遍历和后续遍历的非递归实现，应用不广泛
   preOrder () {
-    this._preOrder(this._root)
+    this._preOrder(this._root);
   }
   inOrder () {
-    this._inOrder(this._root)
+    this._inOrder(this._root);
   }
   postOrder () {
-    this._postOrder(this._root)
+    this._postOrder(this._root);
   }
 
   // 层序遍历，广度优先概念
   levelOrder () {
     if (this._root === null) {
-      return
+      return;
     }
 
-    let _queue = []
-    _queue.push(this._root)
+    let _queue = [];
+    _queue.push(this._root);
 
     while (_queue.length !== 0) {
-      let _node = _queue.shift()
+      let _node = _queue.shift();
 
-      console.log(_node.value)
-      _node.left && _queue.push(_node.left)
-      _node.right && _queue.push(_node.right)
+      console.log(_node.value);
+      _node.left && _queue.push(_node.left);
+      _node.right && _queue.push(_node.right);
     }
   }
 
   remove (key) {
-    this._remove(this._root, key)
+    this._remove(this._root, key);
   }
   removeMin () {
     if (this._root) {
-      this._root = this._removeMin(this._root)
+      this._root = this._removeMin(this._root);
     }
   }
   removeMax () {
     if (this._root) {
-      this._root = this._removeMax(this._root)
+      this._root = this._removeMax(this._root);
     }
   }
   // 寻找当前节点的前驱节点
   successor (key) {
-    let _node = this._findNode(this._root, key)
+    let _node = this._findNode(this._root, key);
     if (_node && _node.left) {
-      return this._finMaxNode(_node.left)
+      return this._finMaxNode(_node.left);
     } else {
-      return null
+      return null;
     }
-
   }
   // 寻找当前节点的后继
-  predecessor(key) {
-    let _node = this._findNode(this._root, key)
+  predecessor (key) {
+    let _node = this._findNode(this._root, key);
     if (_node && _node.right) {
-      return this._findMinNode(_node.right)
+      return this._findMinNode(_node.right);
     } else {
-      return null
+      return null;
     }
   }
   // 寻找当前key值得上范围值，floor
   floor (key) {
-    let _retNode = null
-    this._floor(this._root, key, _retNode)
-    return _retNode
+    let _retNode = null;
+    this._floor(this._root, key, _retNode);
+    return _retNode;
   }
   // ceil
   // rank 58是排名第几的元素？在节点上新增（以当前节点为根的二叉树节点数量）
   // select 排名第十的元素是谁？
 
   size () {
-    return this._count
+    return this._count;
   }
   isEmpty () {
-    return this._count === 0
+    return this._count === 0;
   }
   // todo:二叉搜索树自带递归性质，在插入删除等操作中药充分利用递归的特性~~~
   // fixme：私有方法有几种处理方式？？？
-  _insert(node, key, value) {
+  _insert (node, key, value) {
     if (node === null) {
-      this._count++
-      return new Node(key, value)
+      this._count++;
+      return new Node(key, value);
     }
 
     if (node.key === key) {
-      node.value = value
+      node.value = value;
     } else if (key < node.key) {
-      node.left = this._insert(node.left, key, value)
+      node.left = this._insert(node.left, key, value);
     } else {
-      node.right = this._insert(node.right, key, value)
+      node.right = this._insert(node.right, key, value);
     }
 
-    return node
+    return node;
   }
-  _search(node, key) {
+  _search (node, key) {
     if (node === null) {
-      return undefined
+      return undefined;
     }
 
-    let _retValue
-    if(node.key === key) {
-      _retValue = node.value
-    } else if(key < node.key) {
-      _retValue = this._search(node.left, key)
+    let _retValue;
+    if (node.key === key) {
+      _retValue = node.value;
+    } else if (key < node.key) {
+      _retValue = this._search(node.left, key);
     } else {
-      _retValue = this._search(node.right, key)
+      _retValue = this._search(node.right, key);
     }
 
-    return _retValue
+    return _retValue;
   }
   _contain (node, key) {
     if (node === null) {
-      return false
+      return false;
     }
 
-    if(node.key === key) {
-      return true
-    } else if(key < node.key) {
-      return this._contain(node.left, key)
+    if (node.key === key) {
+      return true;
+    } else if (key < node.key) {
+      return this._contain(node.left, key);
     } else {
-      return this._contain(node.right, key)
+      return this._contain(node.right, key);
     }
   }
   _preOrder (node) {
     if (node !== null) {
-      console.log(node.value)
-      this._preOrder(node.left)
-      this._preOrder(node.right)
+      console.log(node.value);
+      this._preOrder(node.left);
+      this._preOrder(node.right);
     }
   }
   _inOrder (node) {
     if (node !== null) {
-      this._inOrder(node.left)
-      console.log(node.value)
-      this._inOrder(node.right)
+      this._inOrder(node.left);
+      console.log(node.value);
+      this._inOrder(node.right);
     }
   }
   _postOrder (node) {
     if (node !== null) {
-      this._postOrder(node.left)
-      this._postOrder(node.right)
-      console.log(node.value)
+      this._postOrder(node.left);
+      this._postOrder(node.right);
+      console.log(node.value);
     }
   }
   // 释放某个节点及所有子节点
   _destroy (node) {
     if (node !== null) {
-      this._destroy(node.left)
-      this._destroy(node.right)
-      this._count--
-      node = null
+      this._destroy(node.left);
+      this._destroy(node.right);
+      this._count--;
+      node = null;
     }
   }
   // 寻找节点，以node为根节点，寻找节点key
@@ -196,100 +204,100 @@ class BST {
   _findNode (node, key) {
     while (node) {
       if (node.key === key) {
-        return node
+        return node;
       } else if (node.key < key) {
-        node = node.right
+        node = node.right;
       } else {
-        node = node.left
+        node = node.left;
       }
     }
-    return null
+    return null;
   }
   // 寻找最小节点
-  _findMinNode(node) {
+  _findMinNode (node) {
     while (node.left) {
-      node = node.left
+      node = node.left;
     }
-    return node
+    return node;
   }
   // 寻找最大节点，传入node不能为null
   _finMaxNode (node) {
     while (node.right) {
-      node = node.right
+      node = node.right;
     }
-    return node
+    return node;
   }
   // 删除最小值
   _removeMin (node) {
     if (node.left === null) {
-      let _retNode = node.right
-      this._destroy(node)
-      this._count--
+      let _retNode = node.right;
+      this._destroy(node);
+      this._count--;
 
-      return _retNode
+      return _retNode;
     }
-    node.left = this._removeMin(node.left)
-    return node
+    node.left = this._removeMin(node.left);
+    return node;
   }
   // 删除最大值
   _removeMax (node) {
     if (node.right === null) {
-      let _retNode = node.left
-      this._destroy(node)
-      this._count--
+      let _retNode = node.left;
+      this._destroy(node);
+      this._count--;
 
-      return _retNode
+      return _retNode;
     }
-    node.right = this._removeMax(node.right)
-    return node
+    node.right = this._removeMax(node.right);
+    return node;
   }
   // 删除以node为根的二叉树的节点key
   // 返回删除节点后新的二叉树的根
-  _remove(node, key) {
-    if(node === null) {
-      return null
+  _remove (node, key) {
+    if (node === null) {
+      return null;
     }
     if (key < node.key) {
-      node.left = this._remove(node.left, key)
-      return node
+      node.left = this._remove(node.left, key);
+      return node;
     } else if (key > node.key) {
-      node.right = this._remove(node.right, key)
-      return node
+      node.right = this._remove(node.right, key);
+      return node;
     } else {
       if (node.left === null && node.right === null) {
-        node = null
-        this._count --
-        return node
+        node = null;
+        this._count--;
+        return node;
       }
       if (node.left === null) {
-        node = node.right
-        this._count --
-        return node
+        node = node.right;
+        this._count--;
+        return node;
       }
       if (node.right === null) {
-        node = node.left
-        this._count --
-        return node
+        node = node.left;
+        this._count--;
+        return node;
       }
 
       // swap删除节点
-      let _minNode = this._findMinNode(node.right)
-      node.key = _minNode.key
-      node.value = _minNode.value
-      node.right = this._remove(node.right, _minNode.key)
-      return node
+      let _minNode = this._findMinNode(node.right);
+      node.key = _minNode.key;
+      node.value = _minNode.value;
+      node.right = this._remove(node.right, _minNode.key);
+      return node;
     }
   }
   // _retNode为对象引用，不断将小于当前key的节点赋值给retNode，从而达到寻找floor上限的目的
   _floor (node, key, retNode) {
     if (node) {
-      this._floor(node.left, key, retNode)
+      this._floor(node.left, key, retNode);
 
       if (node.key <= key) {
-        retNode = node
+        retNode = node;
       }
 
-      this._floor(node.right, key, retNode)
+      this._floor(node.right, key, retNode);
     }
   }
 }
@@ -314,4 +322,4 @@ class BST2 {
 
 module.exports = {
   BST
-}
+};
